@@ -128,3 +128,8 @@ body:not(.is-mobile) * {
 .desktop-content .grid-link img {
     opacity: 0;
 }
+
+/* Fallback for when JS is disabled completely */
+noscript .noscript-message {
+    display: block;
+}
