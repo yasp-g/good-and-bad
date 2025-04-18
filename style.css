@@ -119,21 +119,6 @@ body:not(.is-mobile) * {
     display: none !important;
 }
 
-/* Better fallback for when JS fails to load */
-@media (max-width: 768px) {
-    .desktop-content {
-        display: none;
-    }
-    
-    .mobile-message {
-        display: flex;
-    }
-    
-    #base-overlay, #top-overlay {
-        display: none;
-    }
-}
-
 /* Focus styles for accessibility */
 .grid-link:focus {
     outline: none;

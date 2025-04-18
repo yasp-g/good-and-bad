@@ -1,17 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- Mobile Detection ---
     function isMobileDevice() {
-        // Keep the comprehensive check, width check is less critical now with CSS changes
         const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const userAgent = navigator.userAgent.toLowerCase();
         const mobileKeywords = ['android', 'webos', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone'];
         const isMobileUA = mobileKeywords.some(keyword => userAgent.includes(keyword));
-        // Consider screen width mainly for layout, less for "is this mobile OS?"
-        const isSmallScreen = window.innerWidth < 768;
-
-        return (hasTouchScreen && isMobileUA) || 
-               (hasTouchScreen && isSmallScreen) || 
-               (isMobileUA && isSmallScreen);
+        
+        return hasTouchScreen || isMobileUA;
     }
 
     if (isMobileDevice()) {
