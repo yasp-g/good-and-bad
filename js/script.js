@@ -109,6 +109,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 10)); // 10ms throttle for smooth experience
 
+    // Safari-compatible Mouse Leave: Show logo
+    document.addEventListener('mouseout', (e) => {
+        // Check if mouse has left the document
+        if (!e.relatedTarget && topOverlay) {
+            topOverlay.style.opacity = '0';
+        }
+    });
+
     // Mouse Leave: Show logo
     document.addEventListener('mouseleave', () => {
         if (topOverlay) {
@@ -128,16 +136,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('visibilitychange', handleActivityChange);
     window.addEventListener('blur', handleActivityChange);
 
-    // Click: Navigate to item page
-    document.addEventListener('click', (e) => {
-        // Don't process clicks if we're on mobile
-        if (document.documentElement.classList.contains('is-mobile')) return;
+    // NAVIGATION DISABLED FOR DEMO
+    // // Click: Navigate to item page
+    // document.addEventListener('click', (e) => {
+    //     // Don't process clicks if we're on mobile
+    //     if (document.documentElement.classList.contains('is-mobile')) return;
 
-        const quadrantKey = getQuadrant(e.clientX, e.clientY);
-        const destinationUrl = linkMap[quadrantKey];
+    //     const quadrantKey = getQuadrant(e.clientX, e.clientY);
+    //     const destinationUrl = linkMap[quadrantKey];
 
-        if (destinationUrl) {
-            window.location.href = destinationUrl;
-        }
-    });
+    //     if (destinationUrl) {
+    //         window.location.href = destinationUrl;
+    //     }
+    // });
 });
