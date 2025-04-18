@@ -1,0 +1,145 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic Layout */
+html, body {
+    height: 100%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+}
+
+/* Better cursor hiding with media query for pointer capability */
+@media (pointer: fine) {
+    body:not(.is-mobile) {
+        cursor: none;
+    }
+}
+
+/* Grid System */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height: 100vh;
+    width: 100vw;
+}
+
+.image-box {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Link Styling */
+.grid-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.grid-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* transition: opacity 0.2s ease; */
+}
+
+/* Image error state */
+.grid-link img:not([src]), 
+.grid-link img[src=""], 
+.grid-link img.error {
+    opacity: 0.2;
+    background-color: #f5f5f5;
+}
+
+/* Overlays */
+#base-overlay, #top-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Prevent tiling */
+    pointer-events: none;
+    z-index: 100;
+}
+
+#top-overlay {
+    z-index: 101;
+    opacity: 0;
+    transition: opacity 0.05s ease; /* Optional: very short transition */
+    will-change: opacity, background-image; /* Performance hint for browsers */
+}
+
+/* --- Visibility Control --- */
+
+/* Desktop content is visible by default */
+.desktop-content {
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Mobile message styling */
+.mobile-message {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    padding: 2rem;
+    background-color: #f5f5f5;
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.mobile-message p {
+    max-width: 80%;
+}
+
+/* --- Mobile Detection Handling --- */
+
+/* When JS adds is-mobile class */
+.is-mobile .desktop-content {
+    display: none !important;
+}
+
+.is-mobile .mobile-message {
+    display: flex !important;
+}
+
+.is-mobile #base-overlay,
+.is-mobile #top-overlay {
+    display: none !important;
+}
+
+/* Better fallback for when JS fails to load */
+@media (max-width: 768px) {
+    .desktop-content {
+        display: none;
+    }
+    
+    .mobile-message {
+        display: flex;
+    }
+    
+    #base-overlay, #top-overlay {
+        display: none;
+    }
+}
+
+/* Focus styles for accessibility */
+.grid-link:focus {
+    outline: none;
+}
+
+/* Hide images entirely - they're only used for fallback if overlays fail */
+.desktop-content .grid-link img {
+    opacity: 0;
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive Grid</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+<body>
+    <div class="mobile-message">
+        <p>This device has no soul. Please return on desktop.</p>
+    </div>
+
+    <main class="desktop-content">
+        <div class="grid">
+            <section class="image-box top-left">
+                <a href="lager/item-1/" class="grid-link" tabindex="-1" data-quadrant="0-0">
+                    <img src="lager/item-1/image.jpg" alt="Item 1" onerror="this.classList.add('error')">
+                </a>
+            </section>
+            <section class="image-box top-right">
+                <a href="lager/item-2/" class="grid-link" tabindex="-1" data-quadrant="1-0">
+                    <img src="lager/item-2/image.jpg" alt="Item 2" onerror="this.classList.add('error')">
+                </a>
+            </section>
+            <section class="image-box bottom-left">
+                <a href="lager/item-3/" class="grid-link" tabindex="-1" data-quadrant="0-1">
+                    <img src="lager/item-3/image.jpg" alt="Item 3" onerror="this.classList.add('error')">
+                </a>
+            </section>
+            <section class="image-box bottom-right">
+                <a href="lager/item-4/" class="grid-link" tabindex="-1" data-quadrant="1-1">
+                    <img src="lager/item-4/image.jpg" alt="Item 4" onerror="this.classList.add('error')">
+                </a>
+            </section>
+        </div>
+    </main>
+
+    <noscript>
+        <style>
+            .desktop-content { display: block !important; }
+            .mobile-message { display: none !important; }
+        </style>
+        <div class="noscript-message" style="position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.7); color: white; padding: 15px; z-index: 1000;">
+            JavaScript is disabled. Some interactive features will not work.
+        </div>
+    </noscript>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
