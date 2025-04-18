@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         '1-1': 'lager/item-4/image.jpg'
     };
 
-    // Map for link destinations on click
+    // Map for link destinations (kept for future implementation)
     const linkMap = {
         '0-0': 'lager/item-1/',
         '1-0': 'lager/item-2/',
@@ -86,6 +86,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     createOverlays();
     preloadImages();
+
+    // Prevent default link behavior for all grid links
+    document.querySelectorAll('.grid-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Stop navigation
+            console.log('Navigation disabled for demo');
+        });
+    });
 
     // --- Event Listeners (Desktop Only) ---
 
