@@ -12,7 +12,7 @@ This webpage provides a minimalist, desktop-only viewing experience. It hides th
 - **Quadrant Interaction (2x2):** Changes the displayed background image based on mouse position within four screen quadrants (top-left, top-right, bottom-left, bottom-right)
 - **Click Navigation:** Clicking a quadrant redirects the browser to the associated item's page (located in the `/lager/` directory)
 - **Default Logo State:** Shows `logo.jpg` when the mouse leaves the window or the page becomes inactive
-- **Mobile Blocking:** Detects mobile devices and displays an alternative message, hiding the gallery[cite: 1, 6, 43]
+- **Mobile Blocking:** Detects mobile devices and displays an alternative message, hiding the gallery
 
 
 ## Roadmap
