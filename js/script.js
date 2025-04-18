@@ -120,8 +120,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Mouse Leave: Show logo
-    document.addEventListener('mouseleave', () => {
+    // Additional check for mouse leaving the window
+    window.addEventListener('mouseleave', () => {
         if (topOverlay) {
             topOverlay.style.opacity = '0';
         }
