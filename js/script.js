@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Map for image sources on hover
     const imageMap = {
-        '0-0': 'lager/item-1/image.jpg',
-        '1-0': 'lager/item-2/image.jpg',
-        '0-1': 'lager/item-3/image.jpg',
-        '1-1': 'lager/item-4/image.jpg'
+        '0-0': 'lager/item-1/fullscreen.jpg',
+        '1-0': 'lager/item-2/fullscreen.jpg',
+        '0-1': 'lager/item-3/fullscreen.jpg',
+        '1-1': 'lager/item-4/fullscreen.jpg'
     };
 
     // Map for link destinations (kept for future implementation)
