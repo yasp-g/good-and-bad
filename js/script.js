@@ -47,13 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             baseOverlay = document.createElement('div');
             baseOverlay.id = 'base-overlay';
-            baseOverlay.style.backgroundImage = `url(${logoImage})`;
+            // baseOverlay.style.backgroundImage = `url(${logoImage})`;
+            baseOverlay.innerHTML = `<img src="${logoImage}" alt="Logo">`;
             document.body.appendChild(baseOverlay);
 
             topOverlay = document.createElement('div');
             topOverlay.id = 'top-overlay';
-            topOverlay.style.backgroundImage = `url(${logoImage})`; 
-            topOverlay.style.opacity = '0';
+            // topOverlay.style.backgroundImage = `url(${logoImage})`;
+            topOverlay.innerHTML = `<img alt="Hover Image">`;
+            // topOverlay.style.opacity = '0';
             document.body.appendChild(topOverlay);
         } catch (error) {
             console.error('Error creating overlays:', error);
@@ -100,15 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mouse Move: Show quadrant image (throttled)
     document.addEventListener('mousemove', throttle((e) => {
         const quadrantKey = getQuadrant(e.clientX, e.clientY);
-        const imageUrl = imageMap[quadrantKey];
-
-        if (imageUrl && topOverlay) {
-            if (topOverlay.style.backgroundImage !== `url("${imageUrl}")`) {
-                topOverlay.style.backgroundImage = `url(${imageUrl})`;
+        const imageSrc = imageMap[quadrantKey];
+    
+        if (imageSrc) {
+            const img = topOverlay.querySelector('img');
+            if (img.src !== imageSrc) {
+                img.src = imageSrc;
             }
-            if (topOverlay.style.opacity !== '1') {
-                topOverlay.style.opacity = '1';
-            }
+            topOverlay.style.opacity = '1';
         }
     }, 10)); // 10ms throttle for smooth experience
 

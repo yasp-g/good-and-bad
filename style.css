@@ -62,18 +62,33 @@ body:not(.is-mobile) * {
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; /* Prevent tiling */
+    display: flex;                      /* For cenetered-padding */
+    justify-content: center;            /* For cenetered-padding */
+    align-items: center;                /* For cenetered-padding */
+    /* background-size: cover;          removed for cenetered-padding */
+    /* background-position: center;     removed for cenetered-padding */
+    /* background-repeat: no-repeat;    removed for cenetered-padding */
     pointer-events: none;
     z-index: 100;
+    padding: 2rem;                      /* For cenetered-padding */
+    background-color: #ffffff !important;        /* For cenetered-padding */
+}
+
+/* For cenetered-padding */
+#base-overlay img, #top-overlay img {
+    max-width: calc(100% - 4rem);
+    max-height: calc(100% - 4rem);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    /* transition: opacity 0.1s ease-in-out; */
 }
 
 #top-overlay {
     z-index: 101;
     opacity: 0;
-    transition: opacity 0.1s ease-in-out;
-    will-change: opacity, background-image; /* Performance hint for browsers */
+    /* transition: opacity 0.1s ease-in-out;    removed for cenetered-padding */
+    will-change: opacity;
 }
 
 /* --- Visibility Control --- */
