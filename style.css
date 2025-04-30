@@ -62,11 +62,26 @@ body:not(.is-mobile) * {
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat; /* Prevent tiling */
+    display: flex;
+    justify-content: center;            /* for dynamic-focal */
+    align-items: center;                /* for dynamic-focal */
+    /* background-size: cover;          removed for dynamic-focal */
+    /* background-position: center;     removed for dynamic-focal */
+    /* background-repeat: no-repeat;    removed for dynamic-focal */
     pointer-events: none;
     z-index: 100;
+    overflow: hidden;
+}
+/* for dynamic-focal */
+#base-overlay img, #top-overlay img {
+    position: absolute;
+    width: 100%;                 /* for dynamic-focal */
+    height: 100%;                /* for dynamic-focal */
+    /* min-width: 100%;         removed for dynamic-focal */
+    /* min-height: 100%;        removed for dynamic-focal */
+    object-fit: cover;        /* for dynamic-focal */
+    object-position: var(--focal-x, 50%) var(--focal-y, 50%);
+    transition: opacity 0.1s ease-in-out;
 }
 
 #top-overlay {

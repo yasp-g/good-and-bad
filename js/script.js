@@ -47,13 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             baseOverlay = document.createElement('div');
             baseOverlay.id = 'base-overlay';
-            baseOverlay.style.backgroundImage = `url(${logoImage})`;
+            baseOverlay.innerHTML = `<img src="${logoImage}" alt="Logo">`;
             document.body.appendChild(baseOverlay);
-
+    
             topOverlay = document.createElement('div');
             topOverlay.id = 'top-overlay';
-            topOverlay.style.backgroundImage = `url(${logoImage})`; 
-            topOverlay.style.opacity = '0';
+            topOverlay.innerHTML = `<img alt="Hover Image">`;
             document.body.appendChild(topOverlay);
         } catch (error) {
             console.error('Error creating overlays:', error);
@@ -95,20 +94,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // --- Load Metadata ---
+    async function loadMetadata(quadrantKey) {
+        const path = linkMap[quadrantKey];
+        if (!path) return null;
+
+        try {
+            const response = await fetch(`${path}metadata.json`);
+            return await response.json();
+        } catch (error) {
+            console.error(`Error loading metadata for ${path}:`, error);
+            return null;
+        }
+    }
+
     // --- Event Listeners (Desktop Only) ---
 
     // Mouse Move: Show quadrant image (throttled)
-    document.addEventListener('mousemove', throttle((e) => {
+    document.addEventListener('mousemove', throttle(async (e) => {
         const quadrantKey = getQuadrant(e.clientX, e.clientY);
         const imageUrl = imageMap[quadrantKey];
 
         if (imageUrl && topOverlay) {
-            if (topOverlay.style.backgroundImage !== `url("${imageUrl}")`) {
-                topOverlay.style.backgroundImage = `url(${imageUrl})`;
+            const metadata = await loadMetadata(quadrantKey);
+            if (metadata && metadata.focal_point) {
+                // Convert focal point to CSS percentage values
+                // Note: focal_point values in metadata should now be 0-100
+                topOverlay.style.setProperty('--focal-x', `${metadata.focal_point.x}%`);
+                topOverlay.style.setProperty('--focal-y', `${metadata.focal_point.y}%`);
             }
-            if (topOverlay.style.opacity !== '1') {
-                topOverlay.style.opacity = '1';
+    
+            const img = topOverlay.querySelector('img');
+            if (img.src !== imageUrl) {
+                img.src = imageUrl;
             }
+            topOverlay.style.opacity = '1';
         }
     }, 10)); // 10ms throttle for smooth experience
 
