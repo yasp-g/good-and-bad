@@ -7,7 +7,7 @@
 "details": ["detail-1.jpg", "detail-2.jpg"],
 "focal_point": {
         "x": 50,
-        "y": 0
+        "y": 40
     },
 "metadata": {
     "season": "Season Placeholder",
