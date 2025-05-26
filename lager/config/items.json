@@ -1,60 +1,93 @@
 {
-    "grid": {
-      "defaultRows": 2,
-      "defaultColumns": 2
-    },
-    "items": [
-      {
-        "id": "item-1",
-        "title": "Photo 1",
-        "path": "/lager/item-1/",
-        "thumbnail": "thumbnail.jpg",
-        "fullscreen": "fullscreen.jpg",
-        "details": ["detail-1.jpg", "detail-2.jpg"],
-        "metadata": {
-          "season": "Season Placeholder",
-          "designer": "Name Placeholder",
-          "materials": ["Placeholder 1", "Placeholder 1"]
-        }
-      },
-      {
-        "id": "item-2",
-        "title": "Photo 2",
-        "path": "/lager/item-2/",
-        "thumbnail": "thumbnail.jpg",
-        "fullscreen": "fullscreen.jpg",
-        "details": ["detail-1.jpg", "detail-2.jpg"],
-        "metadata": {
-          "season": "Season Placeholder",
-          "designer": "Name Placeholder",
-          "materials": ["Placeholder 1", "Placeholder 1"]
-        }
-      },
-      {
-        "id": "item-3",
-        "title": "Photo 3",
-        "path": "/lager/item-3/",
-        "thumbnail": "thumbnail.jpg",
-        "fullscreen": "fullscreen.jpg",
-        "details": ["detail-1.jpg", "detail-2.jpg"],
-        "metadata": {
-          "season": "Season Placeholder",
-          "designer": "Name Placeholder",
-          "materials": ["Placeholder 1", "Placeholder 1"]
-        }
-      },
-      {
-        "id": "item-4",
-        "title": "Photo 4",
-        "path": "/lager/item-4/",
-        "thumbnail": "thumbnail.jpg",
-        "fullscreen": "fullscreen.jpg",
-        "details": ["detail-1.jpg", "detail-2.jpg"],
-        "metadata": {
-          "season": "Season Placeholder",
-          "designer": "Name Placeholder",
-          "materials": ["Placeholder 1", "Placeholder 1"]
-        }
+  "lastUpdated": "2025-05-26T17:12:16.147Z",
+  "grid": {
+    "rows": 3,
+    "columns": 3
+  },
+  "items": [
+    {
+      "id": "item-1",
+      "title": "Photo 1",
+      "path": "/lager/item-1/",
+      "thumbnail": "fullscreen.jpg",
+      "additionalImages": [],
+      "gridPosition": {
+        "x": 0,
+        "y": 0,
+        "quadrant": "0-0"
       }
-    ]
-  }
+    },
+    {
+      "id": "item-2",
+      "title": "Photo 2",
+      "path": "/lager/item-2/",
+      "thumbnail": "fullscreen.jpg",
+      "additionalImages": [],
+      "gridPosition": {
+        "x": 1,
+        "y": 0,
+        "quadrant": "1-0"
+      }
+    },
+    {
+      "id": "item-3",
+      "title": "Photo 3",
+      "path": "/lager/item-3/",
+      "thumbnail": "fullscreen.jpg",
+      "additionalImages": [],
+      "gridPosition": {
+        "x": 2,
+        "y": 0,
+        "quadrant": "2-0"
+      }
+    },
+    {
+      "id": "item-4",
+      "title": "Photo 4",
+      "path": "/lager/item-4/",
+      "thumbnail": "fullscreen.jpg",
+      "additionalImages": [],
+      "gridPosition": {
+        "x": 0,
+        "y": 1,
+        "quadrant": "0-1"
+      }
+    },
+    {
+      "id": "item-5",
+      "title": "Photo 5",
+      "path": "/lager/item-5/",
+      "thumbnail": "fullscreen.jpg",
+      "additionalImages": [],
+      "gridPosition": {
+        "x": 1,
+        "y": 1,
+        "quadrant": "1-1"
+      }
+    },
+    {
+      "id": "item-6",
+      "title": "Photo 6",
+      "path": "/lager/item-6/",
+      "thumbnail": "fullscreen.jpg",
+      "additionalImages": [],
+      "gridPosition": {
+        "x": 2,
+        "y": 1,
+        "quadrant": "2-1"
+      }
+    },
+    {
+      "id": "item-7",
+      "title": "Photo 7",
+      "path": "/lager/item-7/",
+      "thumbnail": "fullscreen.jpg",
+      "additionalImages": [],
+      "gridPosition": {
+        "x": 0,
+        "y": 2,
+        "quadrant": "0-2"
+      }
+    }
+  ]
+}
