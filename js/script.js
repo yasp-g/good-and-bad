@@ -1,4 +1,72 @@
-document.addEventListener('DOMContentLoaded', function() {
+let config;
+
+async function loadConfiguration() {
+    try {
+        const response = await fetch('/lager/config/items.json');
+        config = await response.json();
+        
+        // Generate maps dynamically
+        const imageMap = {};
+        const linkMap = {};
+        
+        config.items.forEach(item => {
+            const quadrant = item.gridPosition.quadrant;
+            imageMap[quadrant] = `${item.path}${item.thumbnail}`;
+            linkMap[quadrant] = item.path;
+        });
+        
+        return { imageMap, linkMap };
+    } catch (error) {
+        console.error('Error loading configuration:', error);
+        return { imageMap: {}, linkMap: {} };
+    }
+}
+
+function generateGrid() {
+    if (!config || !config.items) {
+        console.error('Configuration not loaded');
+        return;
+    }
+
+    // Find desktop content container
+    const desktopContent = document.querySelector('.desktop-content');
+    if (!desktopContent) {
+        console.error('Desktop content container not found');
+        return;
+    }
+
+    // Find or create the grid container
+    let container = document.querySelector('.grid-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'grid-container';
+        desktopContent.appendChild(container);
+    }
+
+    // Clear existing content
+    container.innerHTML = '';
+    
+    // Create grid items based on config
+    config.items.forEach(item => {
+        // Create the grid item link
+        const gridItem = document.createElement('a');
+        gridItem.href = item.path;
+        gridItem.className = 'grid-link';
+        gridItem.dataset.quadrant = item.gridPosition.quadrant;
+        
+        // Create and add the image
+        const img = document.createElement('img');
+        img.src = `${item.path}${item.thumbnail}`;
+        img.alt = item.title;
+        img.onerror = () => img.classList.add('error');
+        
+        gridItem.appendChild(img);
+        container.appendChild(gridItem);
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', async function() {
     // --- Mobile Detection ---
     function isMobileDevice() {
         const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -18,29 +86,48 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoImage = 'logo.jpg';
     let baseOverlay, topOverlay;
 
-    // Map for image sources on hover
-    const imageMap = {
-        '0-0': 'lager/item-1/fullscreen.jpg',
-        '1-0': 'lager/item-2/fullscreen.jpg',
-        '0-1': 'lager/item-3/fullscreen.jpg',
-        '1-1': 'lager/item-4/fullscreen.jpg'
-    };
+    // // Map for image sources on hover
+    // const imageMap = {
+    //     '0-0': 'lager/item-1/fullscreen.jpg',
+    //     '1-0': 'lager/item-2/fullscreen.jpg',
+    //     '0-1': 'lager/item-3/fullscreen.jpg',
+    //     '1-1': 'lager/item-4/fullscreen.jpg'
+    // };
 
-    // Map for link destinations (kept for future implementation)
-    const linkMap = {
-        '0-0': 'lager/item-1/',
-        '1-0': 'lager/item-2/',
-        '0-1': 'lager/item-3/',
-        '1-1': 'lager/item-4/'
-    };
+    // // Map for link destinations (kept for future implementation)
+    // const linkMap = {
+    //     '0-0': 'lager/item-1/',
+    //     '1-0': 'lager/item-2/',
+    //     '0-1': 'lager/item-3/',
+    //     '1-1': 'lager/item-4/'
+    // };
 
-    // Get quadrant from mouse coordinates
-    function getQuadrant(clientX, clientY) {
-        const { innerWidth, innerHeight } = window;
-        const quadrantX = clientX < innerWidth / 2 ? 0 : 1;
-        const quadrantY = clientY < innerHeight / 2 ? 0 : 1;
-        return `${quadrantX}-${quadrantY}`;
+    function getActiveGridItem(clientX, clientY) {
+        const gridLinks = document.querySelectorAll('.grid-link');
+        
+        // Convert grid links to array with their bounding rectangles
+        const items = Array.from(gridLinks).map(link => ({
+            element: link,
+            rect: link.getBoundingClientRect(),
+            quadrant: link.dataset.quadrant
+        }));
+        
+        // Find the item that contains these coordinates
+        const activeItem = items.find(item => 
+            clientX >= item.rect.left &&
+            clientX <= item.rect.right &&
+            clientY >= item.rect.top &&
+            clientY <= item.rect.bottom
+        );
+        
+        return activeItem ? activeItem.quadrant : null;
     }
+
+    const { imageMap, linkMap } = await loadConfiguration();
+    
+    // Update CSS Grid variables
+    document.documentElement.style.setProperty('--grid-columns', config.grid.columns);
+    document.documentElement.style.setProperty('--grid-rows', config.grid.rows);
 
     // Create overlays
     function createOverlays() {
@@ -83,6 +170,10 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
+    // Generate the grid structure
+    generateGrid();
+
+    // Create overlays and preload images
     createOverlays();
     preloadImages();
 
@@ -112,18 +203,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mouse Move: Show quadrant image (throttled)
     document.addEventListener('mousemove', throttle(async (e) => {
-        const quadrantKey = getQuadrant(e.clientX, e.clientY);
+        const quadrantKey = getActiveGridItem(e.clientX, e.clientY);
+        if (!quadrantKey) {
+            if (topOverlay) {
+                topOverlay.style.opacity = '0';
+            }
+            return;
+        }
+        
         const imageUrl = imageMap[quadrantKey];
-
         if (imageUrl && topOverlay) {
             const metadata = await loadMetadata(quadrantKey);
             if (metadata && metadata.focal_point) {
-                // Convert focal point to CSS percentage values
-                // Note: focal_point values in metadata should now be 0-100
                 topOverlay.style.setProperty('--focal-x', `${metadata.focal_point.x}%`);
                 topOverlay.style.setProperty('--focal-y', `${metadata.focal_point.y}%`);
             }
-    
+
             const img = topOverlay.querySelector('img');
             if (img.src !== imageUrl) {
                 img.src = imageUrl;

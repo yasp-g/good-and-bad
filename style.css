@@ -95,8 +95,11 @@ body:not(.is-mobile) * {
 
 /* Desktop content is visible by default */
 .desktop-content {
-    display: block;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 1;
 }
 
@@ -134,9 +137,29 @@ body:not(.is-mobile) * {
     display: none !important;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns, 2), 1fr);
+    grid-template-rows: repeat(var(--grid-rows, 2), 1fr);
+    width: 100%;
+    height: 100%;
+    gap: 0;  /* Remove any gaps between grid items */
+}
+
 /* Focus styles for accessibility */
-.grid-link:focus {
-    outline: none;
+.grid-link {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.grid-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Maintain aspect ratio while filling space */
+    display: block;     /* Remove any default inline spacing */
 }
 
 /* Hide images entirely - they're only used for fallback if overlays fail */
