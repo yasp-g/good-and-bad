@@ -61,19 +61,21 @@ function scanItems() {
       console.warn(`Warning: ${dir.name} is missing required files: ${missingFiles.join(', ')}`);
     }
     
-    // Extract item ID and numeric index
+    // Read metadata with error handling
+    let metadata = {};
+    try {
+      metadata = JSON.parse(fs.readFileSync(path.join(itemPath, 'metadata.json'), 'utf8'));
+    } catch (err) {
+      console.warn(`Warning: Could not read metadata.json for ${dir.name}`);
+    }
+    
     const itemId = dir.name;
-    const itemIndex = parseInt(itemId.replace('item-', '')) - 1; // 0-indexed
+    const itemIndex = parseInt(itemId.replace('item-', '')) - 1;
+    const additionalImages = [];
     
-    // Check for any additional images
-    const additionalImages = files.filter(file => 
-      file.endsWith('.jpg') || file.endsWith('.jpeg') || file.endsWith('.png')
-    ).filter(file => file !== 'fullscreen.jpg' && file !== 'image.jpg');
-    
-    // Create item object
     const item = {
       id: itemId,
-      title: `Item ${itemIndex + 1}`, // Default title
+      title: metadata.title || `Item ${itemIndex + 1}`,
       path: `/${CONFIG.sourceDir}/${itemId}/`,
       thumbnail: 'fullscreen.jpg',
       additionalImages: additionalImages,
