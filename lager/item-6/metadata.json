@@ -1,0 +1,13 @@
+{
+"id": "item-6",
+"title": "Photo 6",
+"path": "/lager/item-6/",
+"thumbnail": "thumbnail.jpg",
+"fullscreen": "fullscreen.jpg",
+"details": ["detail-1.jpg", "detail-2.jpg"],
+"metadata": {
+    "season": "Season Placeholder",
+    "designer": "Name Placeholder",
+    "materials": ["Placeholder 1", "Placeholder 1"]
+    }
+}
