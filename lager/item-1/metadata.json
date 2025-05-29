@@ -5,6 +5,10 @@
 "thumbnail": "thumbnail.jpg",
 "fullscreen": "fullscreen.jpg",
 "details": ["detail-1.jpg", "detail-2.jpg"],
+"focal_point": {
+        "x": 50,
+        "y": 40
+    },
 "metadata": {
     "season": "Season Placeholder",
     "designer": "Name Placeholder",
