@@ -1,0 +1,17 @@
+{
+"id": "item-5",
+"title": "Photo 5",
+"path": "/lager/item-5/",
+"thumbnail": "thumbnail.jpg",
+"fullscreen": "fullscreen.jpg",
+"details": ["detail-1.jpg", "detail-2.jpg"],
+"focal_point": {
+        "x": 50,
+        "y": 50
+    },
+"metadata": {
+    "season": "Season Placeholder",
+    "designer": "Name Placeholder",
+    "materials": ["Placeholder 1", "Placeholder 1"]
+    }
+}
