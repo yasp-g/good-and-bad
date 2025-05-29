@@ -62,41 +62,32 @@ body:not(.is-mobile) * {
     left: 0;
     width: 100%;
     height: 100%;
-    display: flex;                      /* For cenetered-padding */
-    justify-content: center;            /* For cenetered-padding */
-    align-items: center;                /* For cenetered-padding */
-    /* background-size: cover;          removed for cenetered-padding */
-    /* background-position: center;     removed for cenetered-padding */
-    /* background-repeat: no-repeat;    removed for cenetered-padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     pointer-events: none;
     z-index: 100;
-    padding: 2rem;                      /* For cenetered-padding */
-    background-color: #ffffff !important;        /* For cenetered-padding */
+    padding: 2rem;
+    background-color: #ffffff !important;
 }
 
-/* For cenetered-padding */
 #base-overlay img, #top-overlay img {
     max-width: calc(100% - 4rem);
     max-height: calc(100% - 4rem);
     width: auto;
     height: auto;
     object-fit: contain;
-    /* transition: opacity 0.1s ease-in-out; */
-}
-
-#top-overlay {
-    z-index: 101;
-    opacity: 0;
-    /* transition: opacity 0.1s ease-in-out;    removed for cenetered-padding */
-    will-change: opacity;
 }
 
 /* --- Visibility Control --- */
 
 /* Desktop content is visible by default */
 .desktop-content {
-    display: block;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 1;
 }
 
@@ -134,9 +125,29 @@ body:not(.is-mobile) * {
     display: none !important;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns, 2), 1fr);
+    grid-template-rows: repeat(var(--grid-rows, 2), 1fr);
+    width: 100%;
+    height: 100%;
+    gap: 0;
+}
+
 /* Focus styles for accessibility */
-.grid-link:focus {
-    outline: none;
+.grid-link {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.grid-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* Maintain aspect ratio while filling space */
+    display: block;     /* Remove any default inline spacing */
 }
 
 /* Hide images entirely - they're only used for fallback if overlays fail */
