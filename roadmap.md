@@ -1,72 +1,110 @@
 # Project Roadmap: Archive Grid Display
 
 ## Project Overview
-An archival display system for fashion brand imagery, featuring a full-screen interactive grid interface with quadrant-based image display.
+An archival display system for fashion brand imagery, featuring a full-screen interactive grid interface. The system dynamically loads item configurations and displays images in overlays based on mouse position over a generated grid.
 
-### Current Status
-- ✅ Basic proof-of-concept implemented
-- ⚠️ Image display issues identified
-- 📅 Planning phase for display optimization
+## Core Objectives
+1.  **Optimize Full-Screen Image Display:** Ensure images are presented compellingly, utilizing the available screen space effectively.
+2.  **Maintain Visual Integrity:** Preserve the intended look and feel of images across different viewport sizes and aspect ratios.
+3.  **Preserve Important Image Content:** Minimize undesirable cropping and ensure key visual elements remain visible.
+4.  **Ensure Consistent User Experience:** Provide a smooth, intuitive, and performant interaction.
 
-## Objectives
-1. Optimize full-screen image display
-2. Maintain visual integrity across different viewport sizes
-3. Preserve important image content
-4. Ensure consistent user experience
+## Current Implementation Highlights
+*   **Dynamic Grid:** The grid layout (columns and rows) is dynamically determined by the `build.js` script based on the number of items and configured in `items.json`.
+*   **Client-Side Rendering:** The front-end (`script.js`) reads `items.json` to generate the interactive grid areas.
+*   **Overlay-Based Display:**
+    *   A base overlay displays a logo (`logo.jpg`).
+    *   A top overlay displays the main item image (`fullscreen.jpg` from the corresponding item) when a grid quadrant is hovered.
+    *   Images in overlays currently use `object-fit: cover`.
+*   **Focal Point System (Initial):** `script.js` loads `focal_point` data from individual `metadata.json` files and applies it via CSS custom properties (`--focal-x`, `--focal-y`) to the `object-position` of images in the top overlay.
+*   **Mobile Handling:** A message is displayed to mobile users, and desktop-specific functionality is hidden.
+*   **Cursorless Interface:** The mouse cursor is hidden on desktop for an immersive experience.
+*   **State Handling:** The logo is shown by default, when the mouse leaves the window, or when the tab is inactive.
 
-## Proposed Solutions
+## Key Development Area: Optimizing Image Presentation in Overlays
 
-### 1. No Padding Approach
-- Implementation: Switch to `object-fit: contain`
-- Key Features:
-  - Uses `<img>` elements instead of background images
-  - Shows complete images without cropping
-  - Automatic letterboxing/pillarboxing as needed
-- Status: To be evaluated
-- Priority: High
+The primary focus is to refine how images are displayed within the full-screen `#top-overlay` to best meet the project's core objectives.
 
-### 2. Dynamic Focusing System
-- Implementation: Smart scaling and positioning
-- Key Features:
-  - Viewport dimension calculations
-  - Image dimension analysis
-  - Intelligent positioning algorithms
-  - Potential focal point system
-- Status: To be evaluated
-- Priority: Medium
-- Complexity: High
+### Current Approach for Overlay Images
+*   `<img>` tag within `#top-overlay`.
+*   CSS `object-fit: cover;` to ensure the image fills the overlay.
+*   CSS `object-position: var(--focal-x, 50%) var(--focal-y, 50%);` to center the image based on focal points from `metadata.json`.
 
-### 3. Padding/Centering Solution
-- Implementation: Consistent image margins
-- Key Features:
-  - Fixed padding from viewport edges
-  - Centered image positioning
-  - Maintained aspect ratios
-  - Uniform spacing
-- Status: To be evaluated
-- Priority: High
-- Complexity: Low
+### Evaluation of Alternatives/Refinements for Overlay Images
 
-## Next Steps
-- [ ] Evaluate each solution with test images
-- [ ] Create prototype implementations
-- [ ] Assess performance impact
-- [ ] Document implementation details
-- [ ] Make final approach selection
+1.  **`object-fit: contain` Approach**
+    *   **Implementation:** Change `object-fit` to `contain` for the `<img>` in `#top-overlay`.
+    *   **Key Features:** Shows the complete image without cropping. Introduces letterboxing or pillarboxing if the image's aspect ratio doesn't match the viewport.
+    *   **Pros:** Guarantees full image visibility.
+    *   **Cons:** May not fully utilize screen space; letterboxing might be visually undesirable for the brand.
+    *   **Status:** [ ] To be prototyped and evaluated.
+    *   **Priority:** High
 
-## Timeline
-TBD based on solution selection and resource availability
+2.  **Enhanced Dynamic Focusing / Cropping Logic (Refinement of Current `object-fit: cover`)**
+    *   **Implementation:** Further investigate and refine the existing focal point system with `object-fit: cover`. This could involve more sophisticated client-side calculations for `object-position` or exploring advanced techniques if simple focal points are insufficient for diverse imagery.
+    *   **Key Features:** Aims to maximize screen fill while intelligently cropping to preserve the most important parts of the image.
+    *   **Pros:** Immersive, full-screen feel.
+    *   **Cons:** Risk of cropping important details if focal points aren't precise or if image compositions are challenging.
+    *   **Status:** [ ] Current system to be critically evaluated; enhancements to be investigated.
+    *   **Priority:** High
+    *   **Complexity:** Medium to High
 
-## Notes
-- Current implementation uses background-image with cover
-- Mobile devices show alternative message
-- JavaScript handles quadrant detection and image switching
+3.  **Padding/Centering Solution within Overlays**
+    *   **Implementation:** Ensure overlay images have consistent margins from viewport edges, effectively "framing" them within the full-screen overlay. This could be achieved by adjusting image dimensions or using an inner wrapper with padding.
+    *   **Key Features:** Maintains aspect ratio, provides uniform spacing, prevents content from touching screen edges.
+    *   **Pros:** Consistent presentation, can prevent edge cutoff.
+    *   **Cons:** Images won't be strictly "full-screen"; reduces immersive feel.
+    *   **Status:** [ ] To be prototyped and evaluated.
+    *   **Priority:** Medium
+    *   **Complexity:** Low to Medium
+
+### Next Steps for Image Presentation Optimization
+*   [ ] **Prototype:** Implement prototypes for solution #1 (`object-fit: contain`) and #3 (Padding/Centering).
+*   [ ] **Test & Evaluate:** Test all three approaches (current `cover` with focal points, `contain`, and padding/centering) with a diverse range of test images (different aspect ratios, subjects, and compositions).
+*   [ ] **Assess:** Evaluate visual impact, performance implications, and ease of content creation (e.g., defining focal points).
+*   [ ] **Document:** Record findings, pros, and cons for each approach.
+*   [ ] **Select & Implement:** Make a final decision and implement the chosen solution for image presentation in overlays.
+
+## Planned Features & Enhancements
+
+1.  **Item Detail Pages & Navigation**
+    *   **Description:** Develop dedicated HTML pages for each item listed in `lager/`. Enable click navigation: clicking a grid quadrant should navigate the user to the corresponding item's detail page.
+    *   **Status:** [ ] To be implemented.
+    *   **Priority:** High
+    *   **Tasks:**
+        *   [ ] Define the structure and content for item detail pages (e.g., using `image.jpg`, `metadata.json` content).
+        *   [ ] Create a template for these pages.
+        *   [ ] Implement the click-to-navigate functionality in `script.js` (currently disabled).
+        *   [ ] Ensure each item in `items.json` has a valid link to its detail page.
+
+2.  **Replace `logo.jpg` with Transparent PNG**
+    *   **Description:** Switch from `logo.jpg` (which has a white background) to a `logo.png` with a transparent background. This will allow more flexibility if background colors or treatments are ever used behind the logo overlay.
+    *   **Files to update:**
+        *   `js/script.js` (update `logoImage` constant).
+        *   Replace the `logo.jpg` file with the new transparent PNG.
+    *   **Status:** [ ] To be implemented.
+    *   **Priority:** Low
+    *   **Dependencies:** None.
+
+## Completed Milestones
+*   [x] **Proof of Concept:** Initial version with quadrant-based image switching.
+*   [x] **Dynamic Grid Configuration:** `build.js` scans `lager/` items and generates `items.json` with grid dimensions and item details.
+*   [x] **Client-Side Grid Rendering:** `script.js` dynamically creates interactive grid regions based on `items.json`.
+*   [x] **Overlay Image Display:** Implemented base (logo) and top (item image) overlays.
+*   [x] **Basic Focal Point System:** Implemented reading of `focal_point` from `metadata.json` and applying it via `object-position` to images in the top overlay using `object-fit: cover`.
+*   [x] **Mobile Detection:** Implemented logic to show an alternative message on mobile devices.
+*   [x] **Cursorless UI:** Mouse cursor hidden on desktop.
+*   [x] **Default State Handling:** Logo overlay shown on mouse out / tab inactive.
 
 ## Technical Considerations
-- Browser compatibility
-- Performance optimization
-- Image loading strategies
-- Transition smoothness
+*   Browser compatibility (especially for CSS `object-fit`, `object-position`, custom properties).
+*   Performance optimization (image loading, rendering, JS execution, especially `mousemove` events).
+*   Image loading strategies (preloading is in place, can be reviewed).
+*   Transition smoothness for opacity changes.
+*   Accessibility (though the current design is highly visual, considerations for keyboard navigation or future ARIA attributes if applicable).
+
+## Timeline
+TBD based on solution selection for image presentation and resource availability.
 
 ---
-*Last Updated: April 29, 2025*
+*Last Updated: 2025-05-29*
