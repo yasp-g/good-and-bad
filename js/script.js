@@ -61,12 +61,30 @@ function generateGrid() {
 document.addEventListener('DOMContentLoaded', async function() {
     // --- Mobile Detection ---
     function isMobileDevice() {
-        const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        console.log('--- Checking for mobile device ---');
+
+        // 1. Screen size check
+        const isSmallScreen = window.innerWidth < 768;
+        console.log('Window innerWidth:', window.innerWidth);
+        console.log('Is small screen (< 768px)?', isSmallScreen);
+
+        // 2. User Agent check
         const userAgent = navigator.userAgent.toLowerCase();
         const mobileKeywords = ['android', 'webos', 'iphone', 'ipad', 'ipod', 'blackberry', 'windows phone'];
         const isMobileUA = mobileKeywords.some(keyword => userAgent.includes(keyword));
+        console.log('User Agent:', userAgent);
+        console.log('Is mobile User Agent?', isMobileUA);
+
+        // 3. Touch capability check
+        const hasTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        console.log('Has touch capability?', hasTouchScreen);
+
+        // New combined logic
+        const result = isSmallScreen || (isMobileUA && hasTouchScreen);
+        console.log('Final result (isSmallScreen OR (isMobileUA AND hasTouchScreen)):', result);
+        console.log('------------------------------------');
         
-        return hasTouchScreen || isMobileUA;
+        return result;
     }
 
     if (isMobileDevice()) {
