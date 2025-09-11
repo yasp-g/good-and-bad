@@ -76,6 +76,15 @@ The primary focus is to refine how images are displayed within the full-screen `
         *   [x] **JS:** Add a class to the `<body>` element corresponding to the parameter's value.
         *   [x] **CSS:** Add scoped CSS rules in `style.css` for the `contain` and `padding` display modes, triggered by the body class.
 
+2.  **Debug Grid Overlay**
+    *   **Description:** Implement a toggleable visual overlay for the underlying CSS grid structure, activated via a URL query parameter (e.g., `?debug=grid`). This will aid in debugging and demonstrating the grid layout.
+    *   **Status:** [ ] In progress.
+    *   **Priority:** Medium
+    *   **Tasks:**
+        *   [x] **JS:** Extend query parameter logic in `script.js` to check for `debug=grid`.
+        *   [x] **JS:** Add `debug-grid` class to `<body>` when parameter is present.
+        *   [ ] **CSS:** Add styles to `style.css` to visualize grid cells (e.g., borders).
+
 
 ## Infrastructure & Build Process
 
