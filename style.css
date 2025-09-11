@@ -191,16 +191,14 @@ noscript .noscript-message {
 /* --- Debug Overlays --- */
 .debug-grid #base-overlay,
 .debug-grid #top-overlay {
-    opacity: 0.5
+    opacity: 0.5 !important;
 }
 
 .debug-grid .grid-link {
-    border: 2px solid red !important; /* Very thick, opaque red border */
-    /* background-color: rgba(0, 0, 255, 0.5) !important; Semi-transparent blue background */
-    box-sizing: border-box !important; /* Ensure border is included */
+    outline: 2px solid red !important; /* Very thick, opaque red border */
     z-index: 1000 !important; /* Ensure it's on top if anything else appears */
     position: relative !important; /* Ensure z-index works */
-    overflow: visible !important; /* Ensure no clipping */
+    /* overflow: visible !important;  Ensure no clipping */
 }
 
 .debug-grid .grid-container {
