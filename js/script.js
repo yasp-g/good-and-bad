@@ -1,25 +1,17 @@
-let config;
+const config = JSON.parse(document.getElementById('site-data').textContent);
 
-async function loadConfiguration() {
-    try {
-        const response = await fetch('/lager/config/items.json');
-        config = await response.json();
-        
-        // Generate maps dynamically
-        const imageMap = {};
-        const linkMap = {};
-        
-        config.items.forEach(item => {
-            const quadrant = item.gridPosition.quadrant;
-            imageMap[quadrant] = `${item.path}${item.thumbnail}`;
-            linkMap[quadrant] = item.path;
-        });
-        
-        return { imageMap, linkMap };
-    } catch (error) {
-        console.error('Error loading configuration:', error);
-        return { imageMap: {}, linkMap: {} };
-    }
+function loadConfiguration() {
+    // Generate maps dynamically
+    const imageMap = {};
+    const linkMap = {};
+    
+    config.items.forEach(item => {
+        const quadrant = item.gridPosition.quadrant;
+        imageMap[quadrant] = `${item.path}${item.thumbnail}`;
+        linkMap[quadrant] = item.path;
+    });
+    
+    return { imageMap, linkMap };
 }
 
 function generateGrid() {
