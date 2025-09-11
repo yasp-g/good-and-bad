@@ -10,8 +10,8 @@ An archival display system for fashion brand imagery, featuring a full-screen in
 4.  **Ensure Consistent User Experience:** Provide a smooth, intuitive, and performant interaction.
 
 ## Current Implementation Highlights
-*   **Dynamic Grid:** The grid layout (columns and rows) is dynamically determined by the `build.js` script based on the number of items and configured in `items.json`.
-*   **Client-Side Rendering:** The front-end (`script.js`) reads `items.json` to generate the interactive grid areas.
+*   **Dynamic Data Generation:** The project's item data and grid configuration are dynamically generated at build time by Eleventy.
+*   **Client-Side Rendering:** The front-end (`script.js`) consumes data injected by Eleventy at build time to generate the interactive grid areas.
 *   **Overlay-Based Display:**
     *   A base overlay displays a logo (`logo.jpg`).
     *   A top overlay displays the main item image (`fullscreen.jpg` from the corresponding item) when a grid quadrant is hovered.
@@ -67,6 +67,23 @@ The primary focus is to refine how images are displayed within the full-screen `
 
 ## Planned Features & Enhancements
 
+## Infrastructure & Build Process
+
+1.  **Migrate to Eleventy and Configure Deployment**
+    *   **Description:** Replace the custom `js/build.js` script with Eleventy to streamline the build process. Configure the project for automated deployments via GitHub and Cloudflare Pages.
+    *   **Status:** [x] In Progress
+    *   **Priority:** High
+    *   **Tasks (Eleventy Migration):**
+        *   [x] Install and configure Eleventy.
+        *   [x] Create a global data file to replace the logic from `js/build.js`.
+        *   [x] Set up passthrough copy for all static assets (CSS, JS, images).
+        *   [x] Modify `js/script.js` to consume data injected by Eleventy at build time.
+        *   [ ] Decommission the `js/build.js` script.
+    *   **Tasks (Deployment Configuration):**
+        *   [ ] Connect GitHub repository to Cloudflare Pages.
+        *   [ ] Configure Cloudflare Pages build settings (e.g., build command `npx @11ty/eleventy`, output directory `_site`).
+        *   [ ] Set up custom subdomain on Cloudflare.
+
 1.  **Item Detail Pages & Navigation**
     *   **Description:** Develop dedicated HTML pages for each item listed in `lager/`. Enable click navigation: clicking a grid quadrant should navigate the user to the corresponding item's detail page.
     *   **Status:** [ ] To be implemented.
@@ -86,15 +103,16 @@ The primary focus is to refine how images are displayed within the full-screen `
     *   **Priority:** Low
     *   **Dependencies:** None.
 
-## Completed Milestones
+## Completed Milestones\
 *   [x] **Proof of Concept:** Initial version with quadrant-based image switching.
+*   [x] **Cursorless UI:** Mouse cursor hidden on desktop.
+*   [x] **Overlay Image Display:** Implemented base (logo) and top (item image) overlays.
+*   [x] **Default State Handling:** Logo overlay shown on mouse out / tab inactive.
+*   [x] **Mobile Detection:** Implemented logic to show an alternative message on mobile devices.
+*   [x] **Basic Focal Point System:** Implemented reading of `focal_point` from `metadata.json` and applying it via `object-position` to images in the top overlay using `object-fit: cover`.
 *   [x] **Dynamic Grid Configuration:** `build.js` scans `lager/` items and generates `items.json` with grid dimensions and item details.
 *   [x] **Client-Side Grid Rendering:** `script.js` dynamically creates interactive grid regions based on `items.json`.
-*   [x] **Overlay Image Display:** Implemented base (logo) and top (item image) overlays.
-*   [x] **Basic Focal Point System:** Implemented reading of `focal_point` from `metadata.json` and applying it via `object-position` to images in the top overlay using `object-fit: cover`.
-*   [x] **Mobile Detection:** Implemented logic to show an alternative message on mobile devices.
-*   [x] **Cursorless UI:** Mouse cursor hidden on desktop.
-*   [x] **Default State Handling:** Logo overlay shown on mouse out / tab inactive.
+*   [x] **Migrated to Eleventy:** Replaced custom `js/build.js` script with a more robust Eleventy build process, including data generation and a reliable local development workflow.
 
 ## Technical Considerations
 *   Browser compatibility (especially for CSS `object-fit`, `object-position`, custom properties).

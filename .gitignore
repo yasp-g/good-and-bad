@@ -143,3 +143,6 @@ sandbox/
 .vscode/*
 # !.vscode/settings.json
 .history/
+
+# eleventy
+_site/
