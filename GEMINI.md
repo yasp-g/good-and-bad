@@ -24,6 +24,7 @@ For a detailed project plan, including current status, planned features, and tec
 
 ## Agent Instructions
 
+*   **DOCUMENTATION FIRST:** Before implementing any new feature or change, first update `roadmap.md` to reflect the plan and goals. Confirm this with the user before writing code.
 *   The project is being migrated to the Eleventy static site generator. The custom `js/build.js` script is being replaced.
 *   The primary development focus is on optimizing the full-screen image presentation as outlined in the roadmap.
 *   Maintain the existing coding style and conventions.
