@@ -71,7 +71,7 @@ The primary focus is to refine how images are displayed within the full-screen `
 
 1.  **Migrate to Eleventy and Configure Deployment**
     *   **Description:** Replace the custom `js/build.js` script with Eleventy to streamline the build process. Configure the project for automated deployments via GitHub and Cloudflare Pages.
-    *   **Status:** [x] In Progress
+    *   **Status:** [x] Completed
     *   **Priority:** High
     *   **Tasks (Eleventy Migration):**
         *   [x] Install and configure Eleventy.
@@ -80,9 +80,9 @@ The primary focus is to refine how images are displayed within the full-screen `
         *   [x] Modify `js/script.js` to consume data injected by Eleventy at build time.
         *   [ ] Decommission the `js/build.js` script.
     *   **Tasks (Deployment Configuration):**
-        *   [ ] Connect GitHub repository to Cloudflare Pages.
-        *   [ ] Configure Cloudflare Pages build settings (e.g., build command `npx @11ty/eleventy`, output directory `_site`).
-        *   [ ] Set up custom subdomain on Cloudflare.
+        *   [x] Connect GitHub repository to Cloudflare Pages.
+        *   [x] Configure Cloudflare Pages build settings (e.g., build command `npx @11ty/eleventy`, output directory `_site`).
+        *   [x] Set up custom subdomain on Cloudflare.
 
 1.  **Item Detail Pages & Navigation**
     *   **Description:** Develop dedicated HTML pages for each item listed in `lager/`. Enable click navigation: clicking a grid quadrant should navigate the user to the corresponding item's detail page.
