@@ -66,6 +66,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (displayMode) {
             document.body.classList.add(`display-${displayMode}`);
         }
+
+        // --- Debug Grid Overlay ---
+        const debugGrid = params.get('debug');
+        if (debugGrid === 'grid') { // Check for specific value 'grid'
+            document.body.classList.add('debug-grid');
+        }
     } catch (error) {
         console.error('Error applying display mode:', error);
     }
