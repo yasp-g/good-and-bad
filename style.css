@@ -207,3 +207,9 @@ noscript .noscript-message {
     /* position: relative !important; */
 }
 
+/* style.css */
+/* --- Make cursor visible for debugging (Corrected for specificity) --- */
+body.debug-grid:not(.is-mobile),
+body.debug-grid:not(.is-mobile) * {
+    cursor: auto !important;
+}
