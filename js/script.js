@@ -59,6 +59,17 @@ function generateGrid() {
 
 
 document.addEventListener('DOMContentLoaded', async function() {
+    // --- Display Mode Switcher ---
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const displayMode = params.get('display');
+        if (displayMode) {
+            document.body.classList.add(`display-${displayMode}`);
+        }
+    } catch (error) {
+        console.error('Error applying display mode:', error);
+    }
+
     // --- Mobile Detection ---
     function isMobileDevice() {
         console.log('--- Checking for mobile device ---');

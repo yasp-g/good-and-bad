@@ -67,6 +67,16 @@ The primary focus is to refine how images are displayed within the full-screen `
 
 ## Planned Features & Enhancements
 
+1.  **Client-Facing Display Mode Switcher**
+    *   **Description:** Implement a system to switch between the three image display prototypes (`cover`, `contain`, `padding`) using a URL query parameter (`?display=...`). This will allow the client to easily compare the options from a single deployment without requiring branch changes or backend configuration.
+    *   **Status:** [x] Completed
+    *   **Priority:** High
+    *   **Tasks:**
+        *   [x] **JS:** Add logic to `script.js` to read the `display` query parameter on page load.
+        *   [x] **JS:** Add a class to the `<body>` element corresponding to the parameter's value.
+        *   [x] **CSS:** Add scoped CSS rules in `style.css` for the `contain` and `padding` display modes, triggered by the body class.
+
+
 ## Infrastructure & Build Process
 
 1.  **Migrate to Eleventy and Configure Deployment**

@@ -171,3 +171,19 @@ body:not(.is-mobile) * {
 noscript .noscript-message {
     display: block;
 }
+
+/* --- Display Mode Overrides --- */
+
+/* 1. Contain Mode */
+/* Switches the object-fit property to 'contain' when ?display=contain is in the URL. */
+.display-contain #top-overlay img {
+    object-fit: contain;
+}
+
+/* 2. Padding Mode */
+/* Shrinks the image to create a 'framed' or 'padded' effect when ?display=padding is in the URL. */
+.display-padding #top-overlay img {
+    object-fit: contain;
+    width: 90%;
+    height: 90%;
+}
