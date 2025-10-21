@@ -246,9 +246,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // --- Event Listeners (Desktop Only) ---
 
-  // Track current state to reduce logging noise
+  // Track current state to prevent race conditions
   let currentQuadrant = null;
-  let currentImageSrc = null;
+  let targetQuadrant = null; // Track what we're loading
+  let isUpdating = false;
 
   // Mouse Move: Show quadrant image (throttled)
   document.addEventListener(
@@ -262,13 +263,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.log(
           `[${eventTimestamp}] ⚡ QUADRANT CHANGED: ${currentQuadrant} → ${quadrantKey}`,
         );
-        currentQuadrant = quadrantKey;
       }
 
       if (!quadrantKey) {
         if (topOverlay) {
           topOverlay.style.opacity = "0";
         }
+        currentQuadrant = null;
+        targetQuadrant = null;
         return;
       }
 
@@ -280,6 +282,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         const needsUpdate = !img.src.endsWith(imageUrl);
 
         if (needsUpdate) {
+          // Ignore if we're already loading this quadrant
+          if (targetQuadrant === quadrantKey) {
+            console.log(
+              `[${eventTimestamp}] ⏭️  SKIPPING - already loading ${quadrantKey}`,
+            );
+            return;
+          }
+
+          targetQuadrant = quadrantKey;
+          isUpdating = true;
+
           console.log(
             `[${eventTimestamp}] 🖼️  IMAGE UPDATE NEEDED for ${quadrantKey}`,
           );
@@ -287,6 +300,15 @@ document.addEventListener("DOMContentLoaded", async function () {
           console.log(`[${eventTimestamp}]   Target:  ${imageUrl}`);
 
           const metadata = await loadMetadata(quadrantKey);
+
+          // Check if quadrant changed while we were loading
+          if (targetQuadrant !== quadrantKey) {
+            console.log(
+              `[${eventTimestamp}] ❌ STALE - quadrant changed during load, ignoring`,
+            );
+            return;
+          }
+
           console.log(
             `[${eventTimestamp}] 📍 Metadata loaded (after ${Date.now() - eventTimestamp}ms)`,
           );
@@ -306,7 +328,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             `[${eventTimestamp}] 🔄 Changing src and showing overlay`,
           );
           img.src = imageUrl;
-          currentImageSrc = imageUrl;
+          currentQuadrant = quadrantKey;
+          isUpdating = false;
         }
 
         topOverlay.style.opacity = "1";
