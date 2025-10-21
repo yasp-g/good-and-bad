@@ -246,6 +246,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   // --- Event Listeners (Desktop Only) ---
 
+  // Track current state to reduce logging noise
+  let currentQuadrant = null;
+  let currentImageSrc = null;
+
   // Mouse Move: Show quadrant image (throttled)
   document.addEventListener(
     "mousemove",
@@ -253,14 +257,16 @@ document.addEventListener("DOMContentLoaded", async function () {
       const eventTimestamp = Date.now();
       const quadrantKey = getActiveGridItem(e.clientX, e.clientY);
 
-      console.log(
-        `[${eventTimestamp}] mousemove fired, quadrant:`,
-        quadrantKey,
-      );
+      // Only log when quadrant changes
+      if (quadrantKey !== currentQuadrant) {
+        console.log(
+          `[${eventTimestamp}] ⚡ QUADRANT CHANGED: ${currentQuadrant} → ${quadrantKey}`,
+        );
+        currentQuadrant = quadrantKey;
+      }
 
       if (!quadrantKey) {
         if (topOverlay) {
-          console.log(`[${eventTimestamp}] No quadrant, hiding overlay`);
           topOverlay.style.opacity = "0";
         }
         return;
@@ -270,25 +276,20 @@ document.addEventListener("DOMContentLoaded", async function () {
       if (imageUrl && topOverlay) {
         const img = topOverlay.querySelector("img");
 
-        console.log(`[${eventTimestamp}] Current img.src:`, img.src);
-        console.log(`[${eventTimestamp}] Target imageUrl:`, imageUrl);
-        console.log(`[${eventTimestamp}] URLs match?:`, img.src === imageUrl);
-        console.log(
-          `[${eventTimestamp}] Current opacity:`,
-          topOverlay.style.opacity,
-        );
-
         // Check if we need to update the image
         const needsUpdate = !img.src.endsWith(imageUrl);
-        console.log(`[${eventTimestamp}] Needs update?:`, needsUpdate);
 
         if (needsUpdate) {
           console.log(
-            `[${eventTimestamp}] Starting metadata load for`,
-            quadrantKey,
+            `[${eventTimestamp}] 🖼️  IMAGE UPDATE NEEDED for ${quadrantKey}`,
           );
+          console.log(`[${eventTimestamp}]   Current: ${img.src}`);
+          console.log(`[${eventTimestamp}]   Target:  ${imageUrl}`);
+
           const metadata = await loadMetadata(quadrantKey);
-          console.log(`[${eventTimestamp}] Metadata loaded:`, metadata);
+          console.log(
+            `[${eventTimestamp}] 📍 Metadata loaded (after ${Date.now() - eventTimestamp}ms)`,
+          );
 
           if (metadata && metadata.focal_point) {
             topOverlay.style.setProperty(
@@ -299,17 +300,15 @@ document.addEventListener("DOMContentLoaded", async function () {
               "--focal-y",
               `${metadata.focal_point.y}%`,
             );
-            console.log(
-              `[${eventTimestamp}] Set focal point:`,
-              metadata.focal_point,
-            );
           }
 
-          console.log(`[${eventTimestamp}] Changing src to:`, imageUrl);
+          console.log(
+            `[${eventTimestamp}] 🔄 Changing src and showing overlay`,
+          );
           img.src = imageUrl;
+          currentImageSrc = imageUrl;
         }
 
-        console.log(`[${eventTimestamp}] Setting opacity to 1`);
         topOverlay.style.opacity = "1";
       }
     }, 10),
