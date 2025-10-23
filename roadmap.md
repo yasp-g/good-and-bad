@@ -156,13 +156,14 @@ The primary focus is to refine how images are displayed within the full-screen `
 ### 7. Reduced Motion Support
 
 - **Description:** Respect user's motion preferences for accessibility by disabling or reducing animations.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** Medium
 - **Estimated Time:** 15 minutes
 - **Tasks:**
-  - [ ] Add `@media (prefers-reduced-motion: reduce)` media query to `style.css`
-  - [ ] Set transition durations to near-instant (0.01ms) for reduced motion
-  - [ ] Test with browser/OS reduced motion settings enabled
+  - [x] Add `@media (prefers-reduced-motion: reduce)` media query to `style.css`
+  - [x] Set transition durations to near-instant (0.01ms) for reduced motion
+  - [x] Applied to all elements including ::before and ::after pseudo-elements
+- **Verification:** Enable "Reduce motion" in your OS accessibility settings (macOS: System Settings > Accessibility > Display > Reduce motion). All transitions and animations should become nearly instant.
 
 ### 8. Image Load Progress
 
