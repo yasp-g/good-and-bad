@@ -210,7 +210,7 @@ The primary focus is to refine how images are displayed within the full-screen `
       - [x] Create a global data file to replace the logic from `js/build.js`.
       - [x] Set up passthrough copy for all static assets (CSS, JS, images).
       - [x] Modify `js/script.js` to consume data injected by Eleventy at build time.
-      - [ ] Decommission the `js/build.js` script.
+      - [x] Decommission the `js/build.js` script.
     - **Tasks (Deployment Configuration):**
       - [x] Connect GitHub repository to Cloudflare Pages.
       - [x] Configure Cloudflare Pages build settings (e.g., build command `npx @11ty/eleventy`, output directory `_site`).
@@ -247,6 +247,12 @@ The primary focus is to refine how images are displayed within the full-screen `
 - [x] **Client-Side Grid Rendering:** `script.js` dynamically creates interactive grid regions based on `items.json`.
 - [x] **Migrated to Eleventy:** Replaced custom `js/build.js` script with a more robust Eleventy build process, including data generation and a reliable local development workflow.
 - [x] **Fixed Image Transition Flashing:** Resolved race condition where multiple async metadata loads caused image src to be set multiple times during quadrant changes, resulting in choppy visual transitions. Implemented state tracking to prevent duplicate updates and ignore stale async operations.
+- [x] **Metadata Caching:** Implemented client-side caching for metadata.json files, eliminating 80-90ms delays on repeat quadrant visits.
+- [x] **Ambient Background Blur:** Added blurred background effect for contain/padding display modes, creating a polished visual experience with automatic dark/light mode support.
+- [x] **Build-Time Metadata Validation:** Comprehensive validation of all metadata.json files during Eleventy build, with clear error reporting for missing required fields and invalid values.
+- [x] **Development Performance Monitoring:** Added ?debug=perf mode with FPS counter, cache statistics, quadrant display, and image load performance tracking.
+- [x] **Reduced Motion Support:** Added prefers-reduced-motion media query support for accessibility, reducing all animations to near-instant for motion-sensitive users.
+- [x] **Image Load Progress Indicator:** Optional loading spinner (?showload=true) that appears only after 100ms delay on slow connections.
 
 ## Technical Considerations
 
@@ -264,3 +270,16 @@ TBD based on solution selection for image presentation and resource availability
 ---
 
 _Last Updated: 2025-01-17_
+
+## Performance & UX Summary
+
+All 8 planned performance and UX enhancements have been completed:
+
+- Dead code removal: 241 lines cleaned up
+- Metadata caching: 80-90ms saved per repeat visit
+- Preconnect hints: Tested and removed (not beneficial for same-origin)
+- Ambient blur: Visual polish for contain/padding modes
+- Metadata validation: Comprehensive build-time checks
+- Dev mode: Performance overlay with ?debug=perf
+- Reduced motion: Accessibility support
+- Load indicator: Optional spinner with ?showload=true
