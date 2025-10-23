@@ -142,15 +142,16 @@ The primary focus is to refine how images are displayed within the full-screen `
 ### 6. Development Mode Improvements
 
 - **Description:** Enhance debug mode with additional developer tools and diagnostics.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** Low
 - **Estimated Time:** 1 hour
 - **Tasks:**
-  - [ ] Add FPS counter overlay in debug mode
-  - [ ] Show current quadrant coordinates on screen
-  - [ ] Log metadata cache hit/miss statistics
-  - [ ] Add performance timing logs for image loads
-  - [ ] Create `?debug=perf` mode for performance monitoring
+  - [x] Add FPS counter overlay in debug mode (color-coded: green >55, yellow >30, red <30)
+  - [x] Show current quadrant coordinates on screen
+  - [x] Log metadata cache hit/miss statistics with hit rate percentage
+  - [x] Add performance timing logs for image loads with rolling average
+  - [x] Create `?debug=perf` mode for performance monitoring
+- **Verification:** Add `?debug=perf` to URL to see the performance overlay in the top-right corner showing FPS, current quadrant, cache stats (hits/misses/rate), and image load performance metrics.
 
 ### 7. Reduced Motion Support
 

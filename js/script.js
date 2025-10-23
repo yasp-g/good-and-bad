@@ -66,11 +66,13 @@ document.addEventListener("DOMContentLoaded", async function () {
       document.body.classList.add(`display-${displayMode}`);
     }
 
-    // --- Debug Grid Overlay ---
-    const debugGrid = params.get("debug");
-    if (debugGrid === "grid") {
-      // Check for specific value 'grid'
+    // --- Debug Mode Handler ---
+    const debugMode = params.get("debug");
+    if (debugMode === "grid") {
       document.body.classList.add("debug-grid");
+    }
+    if (debugMode === "perf") {
+      document.body.classList.add("debug-perf");
     }
   } catch (error) {
     console.error("Error applying display mode:", error);
@@ -222,10 +224,18 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Check cache first
     if (metadataCache.has(quadrantKey)) {
       console.log(`💾 Cache hit for ${quadrantKey}`);
+      if (debugMode === "perf") {
+        perfStats.cacheHits++;
+        window.updateDebugStats();
+      }
       return metadataCache.get(quadrantKey);
     }
 
     console.log(`🌐 Cache miss for ${quadrantKey} - fetching...`);
+    if (debugMode === "perf") {
+      perfStats.cacheMisses++;
+      window.updateDebugStats();
+    }
     try {
       const response = await fetch(`${path}metadata.json`);
       const metadata = await response.json();
@@ -250,6 +260,131 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Metadata cache to avoid redundant fetches
   const metadataCache = new Map();
 
+  // --- Development Mode Improvements ---
+  const debugParams = new URLSearchParams(window.location.search);
+  const debugMode = debugParams.get("debug");
+  let debugOverlay = null;
+  let fpsCounter = null;
+  let quadrantDisplay = null;
+  let perfStats = {
+    cacheHits: 0,
+    cacheMisses: 0,
+    totalImageLoads: 0,
+    avgLoadTime: 0,
+    loadTimes: [],
+  };
+
+  // Create debug overlay if perf mode is enabled
+  if (debugMode === "perf") {
+    debugOverlay = document.createElement("div");
+    debugOverlay.id = "debug-overlay";
+    debugOverlay.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      padding: 15px;
+      border-radius: 8px;
+      z-index: 10000;
+      min-width: 250px;
+      pointer-events: none;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    `;
+
+    // FPS Counter
+    fpsCounter = document.createElement("div");
+    fpsCounter.innerHTML = "<strong>FPS:</strong> <span>--</span>";
+    debugOverlay.appendChild(fpsCounter);
+
+    // Current Quadrant Display
+    quadrantDisplay = document.createElement("div");
+    quadrantDisplay.innerHTML = "<strong>Quadrant:</strong> <span>none</span>";
+    quadrantDisplay.style.marginTop = "8px";
+    debugOverlay.appendChild(quadrantDisplay);
+
+    // Cache Stats
+    const cacheStats = document.createElement("div");
+    cacheStats.id = "cache-stats";
+    cacheStats.style.marginTop = "8px";
+    cacheStats.innerHTML = `
+      <strong>Cache Stats:</strong><br>
+      <span style="margin-left: 10px;">Hits: <span id="cache-hits">0</span></span><br>
+      <span style="margin-left: 10px;">Misses: <span id="cache-misses">0</span></span><br>
+      <span style="margin-left: 10px;">Hit Rate: <span id="cache-rate">0%</span></span>
+    `;
+    debugOverlay.appendChild(cacheStats);
+
+    // Performance Stats
+    const perfDisplay = document.createElement("div");
+    perfDisplay.id = "perf-stats";
+    perfDisplay.style.marginTop = "8px";
+    perfDisplay.innerHTML = `
+      <strong>Performance:</strong><br>
+      <span style="margin-left: 10px;">Images: <span id="img-count">0</span></span><br>
+      <span style="margin-left: 10px;">Avg Load: <span id="avg-load">0ms</span></span>
+    `;
+    debugOverlay.appendChild(perfDisplay);
+
+    document.body.appendChild(debugOverlay);
+
+    // FPS Counter Logic
+    let frameCount = 0;
+    let lastTime = performance.now();
+    let fps = 0;
+
+    function updateFPS() {
+      frameCount++;
+      const currentTime = performance.now();
+      const delta = currentTime - lastTime;
+
+      if (delta >= 1000) {
+        fps = Math.round((frameCount * 1000) / delta);
+        fpsCounter.querySelector("span").textContent = fps;
+        frameCount = 0;
+        lastTime = currentTime;
+
+        // Color code FPS
+        const fpsSpan = fpsCounter.querySelector("span");
+        if (fps >= 55) {
+          fpsSpan.style.color = "#0f0"; // Green
+        } else if (fps >= 30) {
+          fpsSpan.style.color = "#ff0"; // Yellow
+        } else {
+          fpsSpan.style.color = "#f00"; // Red
+        }
+      }
+
+      requestAnimationFrame(updateFPS);
+    }
+
+    updateFPS();
+
+    // Helper function to update debug stats
+    window.updateDebugStats = function () {
+      const total = perfStats.cacheHits + perfStats.cacheMisses;
+      const hitRate =
+        total > 0 ? Math.round((perfStats.cacheHits / total) * 100) : 0;
+
+      document.getElementById("cache-hits").textContent = perfStats.cacheHits;
+      document.getElementById("cache-misses").textContent =
+        perfStats.cacheMisses;
+      document.getElementById("cache-rate").textContent = `${hitRate}%`;
+      document.getElementById("img-count").textContent =
+        perfStats.totalImageLoads;
+
+      if (perfStats.loadTimes.length > 0) {
+        const avg =
+          perfStats.loadTimes.reduce((a, b) => a + b, 0) /
+          perfStats.loadTimes.length;
+        document.getElementById("avg-load").textContent =
+          `${Math.round(avg)}ms`;
+      }
+    };
+  }
+
   // Mouse Move: Show quadrant image (throttled)
   document.addEventListener(
     "mousemove",
@@ -270,7 +405,21 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
         currentQuadrant = null;
         targetQuadrant = null;
+
+        // Update debug display
+        if (debugMode === "perf" && quadrantDisplay) {
+          quadrantDisplay.querySelector("span").textContent = "none";
+        }
         return;
+      }
+
+      // Update debug quadrant display
+      if (
+        debugMode === "perf" &&
+        quadrantDisplay &&
+        quadrantKey !== currentQuadrant
+      ) {
+        quadrantDisplay.querySelector("span").textContent = quadrantKey;
       }
 
       const imageUrl = imageMap[quadrantKey];
@@ -326,7 +475,27 @@ document.addEventListener("DOMContentLoaded", async function () {
           console.log(
             `[${eventTimestamp}] 🔄 Changing src and showing overlay`,
           );
+
+          // Track image load time for performance monitoring
+          const imageLoadStart = Date.now();
           img.src = imageUrl;
+
+          // Track when image finishes loading
+          if (debugMode === "perf") {
+            img.onload = function () {
+              const loadTime = Date.now() - imageLoadStart;
+              perfStats.totalImageLoads++;
+              perfStats.loadTimes.push(loadTime);
+
+              // Keep only last 10 load times for rolling average
+              if (perfStats.loadTimes.length > 10) {
+                perfStats.loadTimes.shift();
+              }
+
+              window.updateDebugStats();
+              console.log(`[perf] Image loaded in ${loadTime}ms`);
+            };
+          }
 
           // Set background image for ambient blur effect (contain/padding modes)
           topOverlay.style.setProperty("--bg-image", `url(${imageUrl})`);
