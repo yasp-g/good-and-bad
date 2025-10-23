@@ -75,50 +75,51 @@ The primary focus is to refine how images are displayed within the full-screen `
 ### 1. Remove Dead Code
 
 - **Description:** Clean up deprecated build script and unused code from the codebase.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** High
 - **Estimated Time:** 15 minutes
 - **Tasks:**
-  - [ ] Delete `js/build.js` script (no longer needed after Eleventy migration)
-  - [ ] Remove any commented-out code in `script.js`
-  - [ ] Check for unused dependencies in `package.json`
+  - [x] Delete `js/build.js` script (no longer needed after Eleventy migration)
+  - [x] Delete `js/server.js` script (replaced by Eleventy dev server)
+  - [x] Remove commented-out code in `script.js` (old hardcoded maps and navigation)
+  - [x] Remove unused dependencies `express` and `sharp` from `package.json`
 
 ### 2. Metadata Caching
 
 - **Description:** Cache metadata.json responses to eliminate redundant network requests when hovering over previously visited quadrants.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** High
 - **Estimated Time:** 30 minutes
 - **Performance Impact:** Eliminates 30-50ms delay on subsequent hovers to the same quadrant
 - **Tasks:**
-  - [ ] Add `metadataCache` Map to store loaded metadata by quadrant key
-  - [ ] Modify `loadMetadata()` function to check cache before fetching
+  - [x] Add `metadataCache` Map to store loaded metadata by quadrant key
+  - [x] Modify `loadMetadata()` function to check cache before fetching
+  - [x] Add debug logging for cache hits/misses (💾 for hits, 🌐 for misses)
   - [ ] Add cache invalidation strategy (optional: consider cache size limits)
-  - [ ] Add debug logging for cache hits/misses
 
 ### 3. Preconnect Hints
 
 - **Description:** Add resource hints to `<head>` to establish early connections for faster metadata fetching.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** High
 - **Estimated Time:** 5 minutes
 - **Performance Impact:** Reduces metadata fetch time on first request
 - **Tasks:**
-  - [ ] Add `<link rel="preconnect">` to `index.njk`
-  - [ ] Consider adding `<link rel="dns-prefetch">` as fallback for older browsers
+  - [x] Add `<link rel="preconnect">` to `index.njk`
+  - [x] Add `<link rel="dns-prefetch">` as fallback for older browsers
 
 ### 4. Ambient Background Blur
 
 - **Description:** In `contain` and `padding` display modes, show a blurred version of the current image as the background instead of solid color for a more polished look.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** Medium
 - **Estimated Time:** 1-2 hours
 - **Tasks:**
-  - [ ] Modify overlay structure to include background layer
-  - [ ] Apply CSS `filter: blur()` and scale to background image
-  - [ ] Test performance impact of blur filter
-  - [ ] Ensure it only applies in `display-contain` and `display-padding` modes
-  - [ ] Add opacity/fade for smooth transitions
+  - [x] Modify overlay structure to include background layer (using `::before` pseudo-element)
+  - [x] Apply CSS `filter: blur(40px)` and `scale(1.1)` to background image
+  - [x] Set background via CSS custom property `--bg-image` from JavaScript
+  - [x] Ensure it only applies in `display-contain` and `display-padding` modes
+  - [x] Add opacity/fade for smooth transitions (0.6 opacity, 0.3s transition)
 
 ### 5. Validate Metadata on Build
 
