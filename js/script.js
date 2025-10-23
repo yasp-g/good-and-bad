@@ -127,22 +127,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const logoImage = "logo.jpg";
   let baseOverlay, topOverlay;
 
-  // // Map for image sources on hover
-  // const imageMap = {
-  //     '0-0': 'lager/item-1/fullscreen.jpg',
-  //     '1-0': 'lager/item-2/fullscreen.jpg',
-  //     '0-1': 'lager/item-3/fullscreen.jpg',
-  //     '1-1': 'lager/item-4/fullscreen.jpg'
-  // };
-
-  // // Map for link destinations (kept for future implementation)
-  // const linkMap = {
-  //     '0-0': 'lager/item-1/',
-  //     '1-0': 'lager/item-2/',
-  //     '0-1': 'lager/item-3/',
-  //     '1-1': 'lager/item-4/'
-  // };
-
   function getActiveGridItem(clientX, clientY) {
     const gridLinks = document.querySelectorAll(".grid-link");
 
@@ -235,9 +219,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     const path = linkMap[quadrantKey];
     if (!path) return null;
 
+    // Check cache first
+    if (metadataCache.has(quadrantKey)) {
+      console.log(`💾 Cache hit for ${quadrantKey}`);
+      return metadataCache.get(quadrantKey);
+    }
+
+    console.log(`🌐 Cache miss for ${quadrantKey} - fetching...`);
     try {
       const response = await fetch(`${path}metadata.json`);
-      return await response.json();
+      const metadata = await response.json();
+
+      // Store in cache
+      metadataCache.set(quadrantKey, metadata);
+
+      return metadata;
     } catch (error) {
       console.error(`Error loading metadata for ${path}:`, error);
       return null;
@@ -250,6 +246,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let currentQuadrant = null;
   let targetQuadrant = null; // Track what we're loading
   let isUpdating = false;
+
+  // Metadata cache to avoid redundant fetches
+  const metadataCache = new Map();
 
   // Mouse Move: Show quadrant image (throttled)
   document.addEventListener(
@@ -328,6 +327,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             `[${eventTimestamp}] 🔄 Changing src and showing overlay`,
           );
           img.src = imageUrl;
+
+          // Set background image for ambient blur effect (contain/padding modes)
+          topOverlay.style.setProperty("--bg-image", `url(${imageUrl})`);
+
           currentQuadrant = quadrantKey;
           isUpdating = false;
         }
@@ -363,18 +366,4 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   document.addEventListener("visibilitychange", handleActivityChange);
   window.addEventListener("blur", handleActivityChange);
-
-  // NAVIGATION DISABLED FOR DEMO
-  // // Click: Navigate to item page
-  // document.addEventListener('click', (e) => {
-  //     // Don't process clicks if we're on mobile
-  //     if (document.documentElement.classList.contains('is-mobile')) return;
-
-  //     const quadrantKey = getQuadrant(e.clientX, e.clientY);
-  //     const destinationUrl = linkMap[quadrantKey];
-
-  //     if (destinationUrl) {
-  //         window.location.href = destinationUrl;
-  //     }
-  // });
 });
