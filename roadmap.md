@@ -70,6 +70,106 @@ The primary focus is to refine how images are displayed within the full-screen `
 - [ ] **Document:** Record findings, pros, and cons for each approach.
 - [ ] **Select & Implement:** Make a final decision and implement the chosen solution for image presentation in overlays.
 
+## Performance & UX Enhancements
+
+### 1. Remove Dead Code
+
+- **Description:** Clean up deprecated build script and unused code from the codebase.
+- **Status:** [ ] To be implemented
+- **Priority:** High
+- **Estimated Time:** 15 minutes
+- **Tasks:**
+  - [ ] Delete `js/build.js` script (no longer needed after Eleventy migration)
+  - [ ] Remove any commented-out code in `script.js`
+  - [ ] Check for unused dependencies in `package.json`
+
+### 2. Metadata Caching
+
+- **Description:** Cache metadata.json responses to eliminate redundant network requests when hovering over previously visited quadrants.
+- **Status:** [ ] To be implemented
+- **Priority:** High
+- **Estimated Time:** 30 minutes
+- **Performance Impact:** Eliminates 30-50ms delay on subsequent hovers to the same quadrant
+- **Tasks:**
+  - [ ] Add `metadataCache` Map to store loaded metadata by quadrant key
+  - [ ] Modify `loadMetadata()` function to check cache before fetching
+  - [ ] Add cache invalidation strategy (optional: consider cache size limits)
+  - [ ] Add debug logging for cache hits/misses
+
+### 3. Preconnect Hints
+
+- **Description:** Add resource hints to `<head>` to establish early connections for faster metadata fetching.
+- **Status:** [ ] To be implemented
+- **Priority:** High
+- **Estimated Time:** 5 minutes
+- **Performance Impact:** Reduces metadata fetch time on first request
+- **Tasks:**
+  - [ ] Add `<link rel="preconnect">` to `index.njk`
+  - [ ] Consider adding `<link rel="dns-prefetch">` as fallback for older browsers
+
+### 4. Ambient Background Blur
+
+- **Description:** In `contain` and `padding` display modes, show a blurred version of the current image as the background instead of solid color for a more polished look.
+- **Status:** [ ] To be implemented
+- **Priority:** Medium
+- **Estimated Time:** 1-2 hours
+- **Tasks:**
+  - [ ] Modify overlay structure to include background layer
+  - [ ] Apply CSS `filter: blur()` and scale to background image
+  - [ ] Test performance impact of blur filter
+  - [ ] Ensure it only applies in `display-contain` and `display-padding` modes
+  - [ ] Add opacity/fade for smooth transitions
+
+### 5. Validate Metadata on Build
+
+- **Description:** Add Eleventy build-time validation to ensure all metadata.json files have required fields and valid values.
+- **Status:** [ ] To be implemented
+- **Priority:** Medium
+- **Estimated Time:** 45 minutes
+- **Tasks:**
+  - [ ] Create validation schema for metadata.json (required fields, focal point ranges 0-100%, etc.)
+  - [ ] Add validation logic to `_data/items.js`
+  - [ ] Log warnings for missing or invalid metadata
+  - [ ] Optionally fail build on critical validation errors
+  - [ ] Document required metadata structure in README
+
+### 6. Development Mode Improvements
+
+- **Description:** Enhance debug mode with additional developer tools and diagnostics.
+- **Status:** [ ] To be implemented
+- **Priority:** Low
+- **Estimated Time:** 1 hour
+- **Tasks:**
+  - [ ] Add FPS counter overlay in debug mode
+  - [ ] Show current quadrant coordinates on screen
+  - [ ] Log metadata cache hit/miss statistics
+  - [ ] Add performance timing logs for image loads
+  - [ ] Create `?debug=perf` mode for performance monitoring
+
+### 7. Reduced Motion Support
+
+- **Description:** Respect user's motion preferences for accessibility by disabling or reducing animations.
+- **Status:** [ ] To be implemented
+- **Priority:** Medium
+- **Estimated Time:** 15 minutes
+- **Tasks:**
+  - [ ] Add `@media (prefers-reduced-motion: reduce)` media query to `style.css`
+  - [ ] Set transition durations to near-instant (0.01ms) for reduced motion
+  - [ ] Test with browser/OS reduced motion settings enabled
+
+### 8. Image Load Progress
+
+- **Description:** Show subtle loading indicator when images are being fetched, especially beneficial on slower connections.
+- **Status:** [ ] To be implemented
+- **Priority:** Low
+- **Estimated Time:** 1 hour
+- **Tasks:**
+  - [ ] Design subtle loading indicator (spinner, pulse, etc.)
+  - [ ] Track image load state in `script.js`
+  - [ ] Show indicator only when load takes >100ms (avoid flash for fast loads)
+  - [ ] Hide indicator once image is ready
+  - [ ] Test on throttled network connection
+
 ## Planned Features & Enhancements
 
 1.  **Client-Facing Display Mode Switcher**
