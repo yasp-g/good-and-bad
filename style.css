@@ -83,6 +83,31 @@ body:not(.is-mobile) * {
     z-index: 100;
     overflow: hidden;
 }
+
+/* Ambient blurred background for contain/padding modes */
+#top-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--bg-image, none);
+    background-size: cover;
+    background-position: center;
+    filter: blur(40px);
+    transform: scale(1.1);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: -1;
+}
+
+/* Show blurred background only in contain/padding modes */
+.display-contain #top-overlay::before,
+.display-padding #top-overlay::before {
+    opacity: 0.6;
+}
+
 /* for dynamic-focal */
 #base-overlay img,
 #top-overlay img {
