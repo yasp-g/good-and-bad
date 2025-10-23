@@ -128,15 +128,16 @@ The primary focus is to refine how images are displayed within the full-screen `
 ### 5. Validate Metadata on Build
 
 - **Description:** Add Eleventy build-time validation to ensure all metadata.json files have required fields and valid values.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** Medium
 - **Estimated Time:** 45 minutes
 - **Tasks:**
-  - [ ] Create validation schema for metadata.json (required fields, focal point ranges 0-100%, etc.)
-  - [ ] Add validation logic to `_data/items.js`
-  - [ ] Log warnings for missing or invalid metadata
-  - [ ] Optionally fail build on critical validation errors
-  - [ ] Document required metadata structure in README
+  - [x] Create validation schema for metadata.json (required fields, focal point ranges 0-100%, etc.)
+  - [x] Add validation logic to `_data/items.js`
+  - [x] Log warnings for missing or invalid metadata with clear emojis (✅ ❌ ⚠️)
+  - [x] Build continues with validation errors but issues are clearly reported
+  - [x] Document required metadata structure in README
+- **Verification:** Run `npm run build` to see validation output. Items with valid metadata show ✅, errors show ❌, warnings show ⚠️.
 
 ### 6. Development Mode Improvements
 
