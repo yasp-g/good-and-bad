@@ -74,6 +74,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (debugMode === "perf") {
       document.body.classList.add("debug-perf");
     }
+
+    // --- Show Load Parameter ---
+    const showLoad = params.get("showload");
+    if (showLoad === "true") {
+      document.body.classList.add("show-load");
+    }
   } catch (error) {
     console.error("Error applying display mode:", error);
   }
@@ -263,6 +269,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // --- Development Mode Improvements ---
   const debugParams = new URLSearchParams(window.location.search);
   const debugMode = debugParams.get("debug");
+  const showLoad = debugParams.get("showload") === "true";
   let debugOverlay = null;
   let fpsCounter = null;
   let quadrantDisplay = null;
@@ -385,6 +392,68 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
   }
 
+  // --- Image Load Progress Indicator ---
+  let loadingIndicator = null;
+  let loadingTimeout = null;
+
+  if (showLoad) {
+    loadingIndicator = document.createElement("div");
+    loadingIndicator.id = "loading-indicator";
+    loadingIndicator.style.cssText = `
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.2);
+      border-top: 4px solid rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+      pointer-events: none;
+      z-index: 9999;
+      animation: spin 0.8s linear infinite;
+    `;
+
+    // Add keyframes for spinner animation
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes spin {
+        0% { transform: translate(-50%, -50%) rotate(0deg); }
+        100% { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(loadingIndicator);
+  }
+
+  function showLoadingIndicator() {
+    if (!showLoad || !loadingIndicator) return;
+
+    // Clear any existing timeout
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout);
+    }
+
+    // Only show if load takes longer than 100ms
+    loadingTimeout = setTimeout(() => {
+      loadingIndicator.style.opacity = "1";
+    }, 100);
+  }
+
+  function hideLoadingIndicator() {
+    if (!showLoad || !loadingIndicator) return;
+
+    // Clear the timeout if image loads quickly
+    if (loadingTimeout) {
+      clearTimeout(loadingTimeout);
+      loadingTimeout = null;
+    }
+
+    loadingIndicator.style.opacity = "0";
+  }
+
   // Mouse Move: Show quadrant image (throttled)
   document.addEventListener(
     "mousemove",
@@ -476,14 +545,22 @@ document.addEventListener("DOMContentLoaded", async function () {
             `[${eventTimestamp}] 🔄 Changing src and showing overlay`,
           );
 
+          // Show loading indicator
+          showLoadingIndicator();
+
           // Track image load time for performance monitoring
           const imageLoadStart = Date.now();
           img.src = imageUrl;
 
           // Track when image finishes loading
-          if (debugMode === "perf") {
-            img.onload = function () {
-              const loadTime = Date.now() - imageLoadStart;
+          img.onload = function () {
+            const loadTime = Date.now() - imageLoadStart;
+
+            // Hide loading indicator
+            hideLoadingIndicator();
+
+            // Performance tracking
+            if (debugMode === "perf") {
               perfStats.totalImageLoads++;
               perfStats.loadTimes.push(loadTime);
 
@@ -494,8 +571,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
               window.updateDebugStats();
               console.log(`[perf] Image loaded in ${loadTime}ms`);
-            };
-          }
+            }
+          };
+
+          // Hide indicator on error as well
+          img.onerror = function () {
+            hideLoadingIndicator();
+          };
 
           // Set background image for ambient blur effect (contain/padding modes)
           topOverlay.style.setProperty("--bg-image", `url(${imageUrl})`);

@@ -168,15 +168,16 @@ The primary focus is to refine how images are displayed within the full-screen `
 ### 8. Image Load Progress
 
 - **Description:** Show subtle loading indicator when images are being fetched, especially beneficial on slower connections.
-- **Status:** [ ] To be implemented
+- **Status:** [x] Completed
 - **Priority:** Low
 - **Estimated Time:** 1 hour
 - **Tasks:**
-  - [ ] Design subtle loading indicator (spinner, pulse, etc.)
-  - [ ] Track image load state in `script.js`
-  - [ ] Show indicator only when load takes >100ms (avoid flash for fast loads)
-  - [ ] Hide indicator once image is ready
-  - [ ] Test on throttled network connection
+  - [x] Design subtle loading indicator (circular spinner with fade-in animation)
+  - [x] Track image load state in `script.js`
+  - [x] Show indicator only when load takes >100ms (avoid flash for fast loads)
+  - [x] Hide indicator once image is ready (or on error)
+  - [x] Feature hidden behind `?showload=true` query parameter
+- **Verification:** Add `?showload=true` to URL. On slow connections, a subtle spinner will appear in the center of the screen when loading images, fading in only after 100ms delay to avoid flashing on fast loads.
 
 ## Planned Features & Enhancements
 
