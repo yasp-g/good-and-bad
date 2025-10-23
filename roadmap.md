@@ -100,18 +100,21 @@ The primary focus is to refine how images are displayed within the full-screen `
 ### 3. Preconnect Hints
 
 - **Description:** Add resource hints to `<head>` to establish early connections for faster metadata fetching.
-- **Status:** [x] Completed
+- **Status:** [x] Not Needed - Removed after testing
 - **Priority:** High
 - **Estimated Time:** 5 minutes
-- **Performance Impact:** Reduces metadata fetch time on first request
+- **Performance Impact:** N/A - All resources are same-origin, browser already has connection established
 - **Tasks:**
   - [x] Add `<link rel="preconnect">` to `index.njk`
   - [x] Add `<link rel="dns-prefetch">` as fallback for older browsers
+  - [x] Testing revealed no benefit for same-origin resources
+  - [x] Removed hints to reduce unnecessary markup
+- **Notes:** Preconnect hints are most beneficial for cross-origin resources. Since all metadata and images are served from the same origin (`goodandbad.jasper.computer`), the browser already maintains the connection. Testing showed no measurable improvement in initial connection times (86ms TLS handshake is normal).
 
 ### 4. Ambient Background Blur
 
 - **Description:** In `contain` and `padding` display modes, show a blurred version of the current image as the background instead of solid color for a more polished look.
-- **Status:** [x] Completed
+- **Status:** [x] Completed and verified
 - **Priority:** Medium
 - **Estimated Time:** 1-2 hours
 - **Tasks:**
@@ -120,6 +123,7 @@ The primary focus is to refine how images are displayed within the full-screen `
   - [x] Set background via CSS custom property `--bg-image` from JavaScript
   - [x] Ensure it only applies in `display-contain` and `display-padding` modes
   - [x] Add opacity/fade for smooth transitions (0.6 opacity, 0.3s transition)
+- **Verification:** Test with `?display=contain` or `?display=padding` URL parameters. Background should show a blurred version of the current image instead of solid letterboxing colors, respecting dark/light mode preferences.
 
 ### 5. Validate Metadata on Build
 
