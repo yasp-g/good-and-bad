@@ -192,12 +192,12 @@ The primary focus is to refine how images are displayed within the full-screen `
 
 2.  **Debug Grid Overlay**
     - **Description:** Implement a toggleable visual overlay for the underlying CSS grid structure, activated via a URL query parameter (e.g., `?debug=grid`). This will aid in debugging and demonstrating the grid layout.
-    - **Status:** [ ] In progress.
+    - **Status:** [x] In progress.
     - **Priority:** Medium
     - **Tasks:**
       - [x] **JS:** Extend query parameter logic in `script.js` to check for `debug=grid`.
       - [x] **JS:** Add `debug-grid` class to `<body>` when parameter is present.
-      - [ ] **CSS:** Add styles to `style.css` to visualize grid cells (e.g., borders).
+      - [x] **CSS:** Add styles to `style.css` to visualize grid cells (e.g., borders).
 
 ## Infrastructure & Build Process
 
