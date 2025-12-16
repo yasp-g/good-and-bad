@@ -102,10 +102,21 @@ body:not(.is-mobile) * {
     z-index: -1;
 }
 
-/* Show blurred background only in contain/padding modes */
-.display-contain #top-overlay::before,
-.display-padding #top-overlay::before {
+/* Show blurred background only in contain/padding modes with bg-blur */
+.bg-blur.display-contain #top-overlay::before,
+.bg-blur.display-padding #top-overlay::before {
     opacity: 0.6;
+}
+
+/* Solid Backgrounds */
+.bg-white.display-contain #top-overlay,
+.bg-white.display-padding #top-overlay {
+    background-color: #ffffff;
+}
+
+.bg-black.display-contain #top-overlay,
+.bg-black.display-padding #top-overlay {
+    background-color: #000000;
 }
 
 /* for dynamic-focal */

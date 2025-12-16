@@ -58,16 +58,19 @@ function generateGrid() {
 }
 
 document.addEventListener("DOMContentLoaded", async function () {
-  // --- Display Mode Switcher ---
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const displayMode = params.get("display");
-    if (displayMode) {
-      document.body.classList.add(`display-${displayMode}`);
-    }
-
-    // --- Debug Mode Handler ---
-    const debugMode = params.get("debug");
+      // --- Display Mode Switcher ---
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const displayMode = params.get("display");
+        if (displayMode) {
+          document.body.classList.add(`display-${displayMode}`);
+        }
+  
+        // --- Background Style Control ---
+        const bgMode = params.get("bg") || "blur";
+        document.body.classList.add(`bg-${bgMode}`);
+  
+        // --- Debug Mode Handler ---    const debugMode = params.get("debug");
     if (debugMode === "grid") {
       document.body.classList.add("debug-grid");
     }

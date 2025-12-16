@@ -1,5 +1,9 @@
 # Project Roadmap: Archive Grid Display
 
+## New Feature
+
+When in the standard (focused) display, where we have the issue of the photos being cut due to the fullscreen zoom, clicking brings the user to a page with the image in the padded state, so that the full image is visible without cropping.
+
 ## Project Overview
 
 An archival display system for fashion brand imagery, featuring a full-screen interactive grid interface. The system dynamically loads item configurations and displays images in overlays based on mouse position over a generated grid.
