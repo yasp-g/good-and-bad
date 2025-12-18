@@ -203,6 +203,20 @@ The primary focus is to refine how images are displayed within the full-screen `
       - [x] **JS:** Add `debug-grid` class to `<body>` when parameter is present.
       - [x] **CSS:** Add styles to `style.css` to visualize grid cells (e.g., borders).
 
+3.  **Background Style Control (`?bg=...`)**
+    - **Description:** Implement a `?bg=...` query parameter to control the background aesthetic in `contain` and `padding` display modes. This allows easy comparison between the ambient blur effect and solid colors.
+    - **Options:**
+        - `blur` (Default): The existing ambient blurred image effect.
+        - `white`: Solid white background.
+        - `black`: Solid black background.
+        - `none`: Transparent background (shows underlying logo).
+    - **Status:** [x] Completed
+    - **Priority:** Medium
+    - **Tasks:**
+        - [ ] **JS:** Read `bg` query parameter and apply corresponding class (e.g., `bg-white`) to `<body>`.
+        - [ ] **CSS:** Define styles for `.bg-white`, `.bg-black`, `.bg-none` affecting `#top-overlay`.
+        - [ ] **CSS:** Ensure the default `blur` effect applies if no parameter is present.
+
 ## Infrastructure & Build Process
 
 1.  **Migrate to Eleventy and Configure Deployment**
