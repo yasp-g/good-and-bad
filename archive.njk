@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+title: Archive Grid
+---
+
+{% block head %}
+<style>
+    /* Archive-specific styles can go here or be moved to a separate file later */
+</style>
+{% endblock %}
+
+<div class="mobile-message">
+    <p>This device has no soul. Please return on desktop.</p>
+</div>
+
+<main class="desktop-content"></main>
+
+{% block scripts %}
+<script type="application/json" id="site-data">
+    {{ items | dump | safe }}
+</script>
+<script src="/js/script.js"></script>
+{% endblock %}

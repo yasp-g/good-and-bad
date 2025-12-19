@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+title: Work — Good and Bad
+---
+
+{% block head %}
+<style>
+    body {
+        background-color: #f0f0f0;
+        color: #1a1a1a;
+        font-family: serif;
+        padding: 40px;
+        line-height: 1.6;
+    }
+    .work-list {
+        list-style: none;
+        padding: 0;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .work-item {
+        margin-bottom: 2rem;
+    }
+    .work-link {
+        color: inherit;
+        text-decoration: none;
+        font-size: 1.5rem;
+        border-bottom: 1px solid transparent;
+        transition: border-bottom 0.2s;
+    }
+    .work-link:hover {
+        border-bottom: 1px solid #1a1a1a;
+    }
+    .work-meta {
+        display: block;
+        font-size: 0.9rem;
+        font-style: italic;
+        margin-top: 0.25rem;
+        color: #666;
+    }
+</style>
+{% endblock %}
+
+<ul class="work-list">
+    <li class="work-item">
+        <a href="/archive/" class="work-link">Archive Grid</a>
+        <span class="work-meta">Interactive archival visualization of the brand's history.</span>
+    </li>
+    <li class="work-item">
+        <span class="work-link">Project Title Placeholder</span>
+        <span class="work-meta">Coming Soon — A brief description of the future project.</span>
+    </li>
+    <li class="work-item">
+        <span class="work-link">Experimental Collection</span>
+        <span class="work-meta">Coming Soon — An exploration of digital and physical textures.</span>
+    </li>
+</ul>

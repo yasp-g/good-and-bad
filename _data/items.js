@@ -179,7 +179,7 @@ function scanItems() {
     const item = {
       id: itemId,
       title: metadata.title || `Item ${itemIndex + 1}`,
-      path: `${CONFIG.sourceDir}/${itemId}/`, // Relative path
+      path: `/${CONFIG.sourceDir}/${itemId}/`, // Absolute path
       thumbnail: "fullscreen.jpg",
       index: itemIndex,
     };

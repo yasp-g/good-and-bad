@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   }
 
   // --- Desktop Overlay Logic ---
-  const logoImage = "logo.jpg";
+  const logoImage = "/logo.jpg";
   let baseOverlay, topOverlay;
 
   function getActiveGridItem(clientX, clientY) {

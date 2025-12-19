@@ -1,34 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive Grid</title>
-    <link rel="icon" href="logo_favicon-32x32.ico" sizes="any">
-    <link rel="icon" type="image/png" href="logo_favicon-32x32.png" sizes="32x32">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="mobile-message">
-        <p>This device has no soul. Please return on desktop.</p>
-    </div>
+---
+layout: layouts/base.njk
+title: Good and Bad
+---
 
-    <main class="desktop-content"></main>
+{% block head %}
+<style>
+    body {
+        background-color: #000;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        cursor: pointer;
+        font-family: sans-serif;
+    }
+    .splash-logo {
+        width: 100px;
+        opacity: 0.8;
+    }
+</style>
+{% endblock %}
 
-    <noscript>
-        <style>
-            .desktop-content { display: block !important; }
-            .mobile-message { display: none !important; }
-        </style>
-        <div class="noscript-message" style="position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.7); color: white; padding: 15px; z-index: 1000;">
-            JavaScript is disabled. Some interactive features will not work.
-        </div>
-    </noscript>
+<div class="splash-container">
+    <img src="/logo.jpg" alt="Logo" class="splash-logo">
+</div>
 
-    <script type="application/json" id="site-data">
-        {{ items | dump | safe }}
-    </script>
-    <script src="js/script.js"></script>
-</body>
-</html>
+{% block scripts %}
+<script>
+    function navigateToWork() {
+        window.location.href = '/work/';
+    }
+    window.addEventListener('click', navigateToWork);
+    window.addEventListener('touchstart', navigateToWork);
+</script>
+{% endblock %}
