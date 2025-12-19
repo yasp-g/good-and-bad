@@ -1,7 +1,7 @@
 module.exports = function(eleventyConfig) {
   // Passthrough copy for static assets
   // This will copy these files and folders directly to the output folder (_site)
-  eleventyConfig.addPassthroughCopy("style.css");
+  eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("js");
   eleventyConfig.addPassthroughCopy("lager");
   eleventyConfig.addPassthroughCopy("logo.jpg");

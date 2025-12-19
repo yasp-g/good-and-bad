@@ -84,6 +84,28 @@ The Eleventy build process automatically validates all `metadata.json` files and
 
 The build will complete even with validation errors, but issues should be fixed to ensure proper functionality.
 
+## Archive Grid URL Parameters
+
+These parameters can be used on the `/archive/` page to customize the viewing experience or debug the grid.
+
+### Display Modes (`?display=...`)
+Controls how the image fits within the fullscreen overlay.
+- **(default)**: Fullscreen cover (uses focal points defined in `metadata.json`).
+- **`contain`**: Fits the whole image on screen (introducing letterboxing).
+- **`padding`**: Fits the image with a 10% visual margin/frame.
+
+### Background Style (`?bg=...`)
+Controls the background aesthetics in `contain` or `padding` modes.
+- **`blur`** (default): A blurred, zoomed version of the current image.
+- **`white`**: Solid white.
+- **`black`**: Solid black.
+- **`none`**: Transparent (shows the underlying logo).
+
+### Debugging & Utilities (`?debug=...` and `?showload=...`)
+- **`?debug=grid`**: Visualizes the invisible interaction grid with red outlines.
+- **`?debug=perf`**: Shows an overlay with FPS, cache hits/misses, and image load times.
+- **`?showload=true`**: Enables a subtle loading spinner for images (appears after 100ms delay).
+
 ## Roadmap
 
 1. Generate grid dynamically by the number of items in `lager/`

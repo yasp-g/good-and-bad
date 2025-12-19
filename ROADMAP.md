@@ -40,11 +40,11 @@ This phase implements the structural changes required to support the multi-page 
 
 ### 3. Asset Reorganization
 - **Description:** Split the monolithic `style.css` to optimize loading.
-- **Status:** [ ] Pending
+- **Status:** [x] Completed
 - **Tasks:**
-    - [ ] Extract global styles (Reset, Fonts) into `css/global.css`.
-    - [ ] Extract grid-specific styles into `css/archive.css` (loaded only on Archive page).
-    - [ ] Ensure `script.js` is only requested on the Archive page.
+    - [x] Extract global styles (Reset, Fonts) into `css/global.css`.
+    - [x] Extract grid-specific styles into `css/archive.css` (loaded only on Archive page).
+    - [x] Ensure `script.js` is only requested on the Archive page.
 
 ---
 
