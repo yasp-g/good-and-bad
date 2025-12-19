@@ -32,11 +32,11 @@ This phase implements the structural changes required to support the multi-page 
 
 ### 2. Page Creation & Migration
 - **Description:** Create the three core pages and migrate existing content.
-- **Status:** [ ] Pending
+- **Status:** [x] Completed
 - **Tasks:**
-    - [ ] **Archive (`archive.njk`):** Move current `index.njk` content here. Configure it to inject `script.js` only on this page.
-    - [ ] **Landing (`index.njk`):** Create new entry point. Implement simple JS for "click-anywhere" navigation to `/work/`.
-    - [ ] **Work (`work.njk`):** Create placeholder list page. Add link to `/archive/`.
+    - [x] **Archive (`archive.njk`):** Move current `index.njk` content here. Configure it to inject `script.js` only on this page.
+    - [x] **Landing (`index.njk`):** Create new entry point with full-screen video background (`landing_video.mp4`) and unmute logic.
+    - [x] **Work (`work.njk`):** Create placeholder list page. Add link to `/archive/`.
 
 ### 3. Asset Reorganization
 - **Description:** Split the monolithic `style.css` to optimize loading.

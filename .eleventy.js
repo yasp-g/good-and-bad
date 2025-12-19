@@ -3,6 +3,7 @@ module.exports = function(eleventyConfig) {
   // This will copy these files and folders directly to the output folder (_site)
   eleventyConfig.addPassthroughCopy("css");
   eleventyConfig.addPassthroughCopy("js");
+  eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy("lager");
   eleventyConfig.addPassthroughCopy("logo.jpg");
   eleventyConfig.addPassthroughCopy("logo_favicon-32x32.ico");
