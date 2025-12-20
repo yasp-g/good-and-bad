@@ -18,3 +18,9 @@ body {
         sans-serif;
     color-scheme: light dark;
 }
+
+/* --- Global Viewing System Utilities --- */
+html.bg-white body, body.bg-white { background-color: #ffffff !important; }
+html.bg-black body, body.bg-black { background-color: #000000 !important; }
+
+/* --- Reduced Motion Support --- */

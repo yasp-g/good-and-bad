@@ -61,6 +61,21 @@ This phase implements the structural changes required to support the multi-page 
     - [ ] Item Detail Pages.
     - [ ] Transparent Logo replacement.
 
+### 3. Global Viewing System
+- **Description:** Implement a site-wide system for `?display` and `?bg` parameters by abstracting logic into the base layout.
+- **Status:** [ ] Pending
+- **Tasks:**
+    - [ ] **Base Layout:** Add script to `base.njk` to parse URL parameters and apply global classes (`display-*`, `bg-*`) to `<html>` and `<body>`.
+    - [ ] **Global CSS:** Define `bg-white` and `bg-black` in `global.css`.
+    - [ ] **Landing Page:** Update `index.njk` to respond to these classes (setting video object-fit).
+
+---
+
+## Future Investigations
+
+1.  **Ambient Video Blur:**
+    -   Investigate performant solutions for applying the ambient blur effect to the landing page video (e.g., dual streams or canvas manipulation).
+
 ---
 
 ## Completed Milestones

@@ -8,6 +8,24 @@
     <link rel="icon" type="image/png" href="/logo_favicon-32x32.png" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="/css/global.css">
+    <script>
+        // Global Viewing System
+        // Parse parameters before page renders to prevent flash
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const displayMode = params.get('display');
+            const bgMode = params.get('bg');
+            
+            if (displayMode) document.documentElement.classList.add(`display-${displayMode}`);
+            if (bgMode) document.documentElement.classList.add(`bg-${bgMode}`);
+            
+            // Re-apply to body when DOM is ready (for CSS specificity if needed)
+            document.addEventListener('DOMContentLoaded', () => {
+                if (displayMode) document.body.classList.add(`display-${displayMode}`);
+                if (bgMode) document.body.classList.add(`bg-${bgMode}`);
+            });
+        })();
+    </script>
     {% block head %}{% endblock %}
 </head>
 <body>
