@@ -63,11 +63,11 @@ This phase implements the structural changes required to support the multi-page 
 
 ### 3. Global Viewing System
 - **Description:** Implement a site-wide system for `?display` and `?bg` parameters by abstracting logic into the base layout.
-- **Status:** [ ] Pending
+- **Status:** [x] Completed
 - **Tasks:**
-    - [ ] **Base Layout:** Add script to `base.njk` to parse URL parameters and apply global classes (`display-*`, `bg-*`) to `<html>` and `<body>`.
-    - [ ] **Global CSS:** Define `bg-white` and `bg-black` in `global.css`.
-    - [ ] **Landing Page:** Update `index.njk` to respond to these classes (setting video object-fit).
+    - [x] **Base Layout:** Add script to `base.njk` to parse URL parameters and apply global classes (`display-*`, `bg-*`) to `<html>` and `<body>`.
+    - [x] **Global CSS:** Define `bg-white` and `bg-black` in `global.css`.
+    - [x] **Landing Page:** Update `index.njk` to respond to these classes (setting video object-fit).
 
 ---
 
