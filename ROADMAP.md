@@ -73,14 +73,6 @@ This phase implements the structural changes required to support the multi-page 
   - [x] **Global CSS:** Define `bg-white` and `bg-black` in `global.css`.
   - [x] **Landing Page:** Update `index.njk` to respond to these classes (setting video object-fit).
 
-### 3. Archive Enhancements (Carried Over)
-
-- **Description:** Planned improvements for the grid view.
-- **Status:** [ ] Pending
-- **Tasks:**
-  - [ ] Item Detail Pages.
-  - [ ] Transparent Logo replacement.
-
 ---
 
 ## Future Investigations
