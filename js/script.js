@@ -70,7 +70,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const bgMode = params.get("bg") || "blur";
         document.body.classList.add(`bg-${bgMode}`);
   
-        // --- Debug Mode Handler ---    const debugMode = params.get("debug");
+        // --- Debug Mode Handler ---
+        const debugMode = params.get("debug");
     if (debugMode === "grid") {
       document.body.classList.add("debug-grid");
     }
