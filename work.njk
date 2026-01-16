@@ -357,8 +357,9 @@ title: Work — Good and Bad
     function saveToStorage() {
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            console.log('[storage] Saved:', state);
         } catch (e) {
-            // localStorage unavailable or full - silently ignore
+            console.warn('[storage] Failed to save:', e);
         }
     }
 
@@ -368,25 +369,36 @@ title: Work — Good and Bad
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
                 const parsed = JSON.parse(saved);
+                console.log('[storage] Found saved state:', parsed);
                 for (const key of Object.keys(state)) {
                     if (parsed[key] && controls[key].querySelector(`option[value="${parsed[key]}"]`)) {
                         state[key] = parsed[key];
                     }
                 }
+                console.log('[storage] Applied to state:', { ...state });
+            } else {
+                console.log('[storage] No saved state found');
             }
         } catch (e) {
-            // localStorage unavailable or corrupted - silently ignore
+            console.warn('[storage] Failed to load:', e);
         }
     }
 
     // Parse URL parameters on load (overrides localStorage)
     function parseURL() {
         const params = new URLSearchParams(window.location.search);
+        const urlOverrides = {};
         for (const key of Object.keys(state)) {
             const value = params.get(key);
             if (value && controls[key].querySelector(`option[value="${value}"]`)) {
                 state[key] = value;
+                urlOverrides[key] = value;
             }
+        }
+        if (Object.keys(urlOverrides).length > 0) {
+            console.log('[url] Overrides from URL params:', urlOverrides);
+        } else {
+            console.log('[url] No URL params found');
         }
     }
 
@@ -399,6 +411,7 @@ title: Work — Good and Bad
 
     // Handle control changes
     function handleChange(key, value) {
+        console.log(`[change] ${key}: ${state[key]} → ${value}`);
         state[key] = value;
         if (key === 'metadata' || key === 'separator') {
             renderList();
@@ -410,8 +423,11 @@ title: Work — Good and Bad
 
     // Initialize
     function init() {
+        console.log('[init] Starting...');
+        console.log('[init] Defaults:', defaults);
         loadFromStorage();  // Load saved preferences
         parseURL();         // URL params override localStorage
+        console.log('[init] Final state:', { ...state });
         syncControls();
         renderList();
         applyClasses();
@@ -420,6 +436,7 @@ title: Work — Good and Bad
         for (const [key, el] of Object.entries(controls)) {
             el.addEventListener('change', (e) => handleChange(key, e.target.value));
         }
+        console.log('[init] Complete');
     }
 
     init();
