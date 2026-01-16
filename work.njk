@@ -350,7 +350,36 @@ title: Work — Good and Bad
         history.replaceState(null, '', newURL);
     }
 
-    // Parse URL parameters on load
+    // localStorage key
+    const STORAGE_KEY = 'workPageState';
+
+    // Save state to localStorage
+    function saveToStorage() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+            // localStorage unavailable or full - silently ignore
+        }
+    }
+
+    // Load state from localStorage
+    function loadFromStorage() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                for (const key of Object.keys(state)) {
+                    if (parsed[key] && controls[key].querySelector(`option[value="${parsed[key]}"]`)) {
+                        state[key] = parsed[key];
+                    }
+                }
+            }
+        } catch (e) {
+            // localStorage unavailable or corrupted - silently ignore
+        }
+    }
+
+    // Parse URL parameters on load (overrides localStorage)
     function parseURL() {
         const params = new URLSearchParams(window.location.search);
         for (const key of Object.keys(state)) {
@@ -376,11 +405,13 @@ title: Work — Good and Bad
         }
         applyClasses();
         updateURL();
+        saveToStorage();
     }
 
     // Initialize
     function init() {
-        parseURL();
+        loadFromStorage();  // Load saved preferences
+        parseURL();         // URL params override localStorage
         syncControls();
         renderList();
         applyClasses();
