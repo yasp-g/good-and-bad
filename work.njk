@@ -15,474 +15,262 @@ title: Work — Good and Bad
     }
 
     body {
-        background: #0a0a0a;
-        color: #ffffff;
+        background: #000;
+        color: #fff;
         font-family: 'Inter', sans-serif;
-        line-height: 1.6;
+        line-height: 1.5;
     }
 
-    .container {
-        max-width: 1600px;
-        margin: 0 auto;
-        padding: 40px 20px;
-    }
-
-    .header {
-        text-align: center;
-        margin-bottom: 60px;
-        padding-bottom: 40px;
-        border-bottom: 1px solid #333;
-    }
-
-    .header h1 {
-        font-size: 2.5em;
-        font-weight: 300;
-        margin-bottom: 20px;
-        letter-spacing: 2px;
-    }
-
-    .header p {
-        font-size: 1em;
-        color: #999;
-        max-width: 800px;
-        margin: 0 auto;
-        line-height: 1.7;
+    /* Section styling */
+    .section {
+        min-height: 100vh;
+        padding: 8vh 8vw;
+        border-bottom: 1px solid #222;
     }
 
     .section-title {
-        font-size: 1.8em;
-        font-weight: 300;
-        margin: 80px 0 40px 0;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #222;
-        letter-spacing: 1px;
-    }
-
-    .mockup-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
-        gap: 60px;
-        margin-bottom: 60px;
-    }
-
-    .mockup {
-        background: #111;
-        border: 1px solid #222;
-        padding: 40px;
-        border-radius: 8px;
-        min-height: 500px;
-    }
-
-    .mockup-title {
-        font-size: 1.1em;
-        margin-bottom: 8px;
-        color: #fff;
-        font-weight: 500;
-        letter-spacing: 1px;
-    }
-
-    .mockup-subtitle {
-        font-size: 0.85em;
+        font-size: clamp(0.75rem, 1.5vw, 1rem);
+        font-weight: 400;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
         color: #666;
-        margin-bottom: 35px;
+        margin-bottom: 6vh;
     }
 
-    /* CONSTANTS APPLIED TO ALL */
+    .variation {
+        margin-bottom: 12vh;
+    }
+
+    .variation:last-child {
+        margin-bottom: 0;
+    }
+
+    .variation-label {
+        font-size: clamp(0.6rem, 1vw, 0.75rem);
+        font-weight: 400;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #444;
+        margin-bottom: 3vh;
+    }
+
+    /* Work list base styles */
     .work-list {
         list-style: none;
     }
 
     .work-item {
-        font-size: 0.95rem;
-        line-height: 1.7;
         transition: opacity 0.3s ease;
     }
 
-    .work-item:hover {
-        opacity: 1 !important;
-    }
-
-    /* Dim all items when a linked item is hovered */
     .work-list:has(a:hover) .work-item {
-        opacity: 0.4;
+        opacity: 0.3;
     }
 
-    /* Keep the hovered item at full opacity */
     .work-list:has(a:hover) .work-item:hover {
         opacity: 1;
     }
 
-    /* Unlinked items don't get hover effects on the text itself */
-    .work-item:not(:has(a)) .project-name {
-        cursor: default;
-    }
-
     .project-name a {
-        color: #fff;
         text-decoration: none;
-        font-weight: 400;
-        transition: all 0.3s ease;
+        transition: opacity 0.3s ease;
     }
 
     .separator {
-        color: #666;
+        color: #444;
     }
 
     .meta {
-        color: #666;
-        font-weight: 400;
+        color: #444;
     }
 
-    /* VARIABLE 1: FONT FAMILY */
+    /* VARIABLE: Font Family */
     .font-inter { font-family: 'Inter', sans-serif; }
     .font-helvetica { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
     .font-cormorant { font-family: 'Cormorant', serif; }
     .font-mono { font-family: 'IBM Plex Mono', monospace; }
 
-    /* VARIABLE 2: VERTICAL SPACING */
-    .spacing-tight .work-item { margin-bottom: 14px; }
-    .spacing-medium .work-item { margin-bottom: 20px; }
-    .spacing-loose .work-item { margin-bottom: 28px; }
+    /* VARIABLE: Vertical Spacing */
+    .spacing-tight .work-item { margin-bottom: 1.5vh; }
+    .spacing-medium .work-item { margin-bottom: 2.5vh; }
+    .spacing-loose .work-item { margin-bottom: 4vh; }
 
-    /* VARIABLE 3: HOVER EFFECT */
-    .hover-underline .project-name a {
-        border-bottom: 1px solid #333;
-    }
-    .hover-underline .project-name a:hover {
-        border-bottom-color: #fff;
-    }
-
-    .hover-color .project-name a:hover {
-        color: #ccc;
-    }
-
-    .hover-brackets .project-name a::before {
-        margin-right: 2px;
-    }
-    .hover-brackets .project-name a::after {
-        margin-left: 2px;
-    }
-    .hover-brackets .project-name a:hover::before {
-        content: '[';
-    }
-    .hover-brackets .project-name a:hover::after {
-        content: ']';
-    }
-
-    /* VARIABLE 4: SEPARATOR TYPE */
+    /* VARIABLE: Separator Type */
     .sep-comma .separator::after { content: ','; }
-    .sep-comma .separator { margin-left: 0; margin-right: 6px; }
-
-    .sep-slash .separator::after { content: '/'; }
-    .sep-slash .separator { margin-left: 8px; margin-right: 8px; }
-
-    .sep-dash .separator::after { content: '—'; }
-    .sep-dash .separator { margin-left: 8px; margin-right: 8px; }
+    .sep-comma .separator { margin-right: 0.5em; }
 
     .sep-tab .work-item {
         display: grid;
-        grid-template-columns: 1fr auto auto auto auto;
-        gap: 24px;
+        grid-template-columns: 1fr auto;
+        gap: 4vw;
         align-items: baseline;
     }
     .sep-tab .separator { display: none; }
-    .sep-tab .meta-col {
-        color: #666;
-        font-weight: 400;
-    }
+    .sep-tab .meta { text-align: right; }
 
-    /* Make tab-aligned work-list a single grid for proper alignment */
-    .sep-tab.work-list {
-        display: grid;
-        grid-template-columns: 1fr auto auto auto auto;
-        gap: 24px;
-        row-gap: 20px;
-    }
-    .sep-tab.work-list .work-item {
-        display: contents;
-    }
+    /* VARIABLE: Link Color */
+    .link-blue .project-name a { color: #4A90D9; }
+    .link-light-blue .project-name a { color: #7AB8F5; }
+    .link-cyan .project-name a { color: #5BC0BE; }
+    .link-white .project-name a { color: #fff; }
 
-    /* VARIABLE 5: METADATA (handled in HTML) */
-    /* year-only, year-collab, full */
+    /* VARIABLE: Text Scale */
+    .scale-sm .work-item { font-size: clamp(1rem, 2vw, 1.5rem); }
+    .scale-md .work-item { font-size: clamp(1.25rem, 3vw, 2rem); }
+    .scale-lg .work-item { font-size: clamp(1.5rem, 4vw, 3rem); }
+    .scale-xl .work-item { font-size: clamp(2rem, 5vw, 4rem); }
 
-    /* GRID FORMAT (separate from inline) */
-    .format-grid .work-item {
-        display: grid;
-        grid-template-columns: 70px 1fr 100px;
-        gap: 20px;
-        padding: 14px 0;
-        border-bottom: 1px solid #1a1a1a;
-        align-items: baseline;
-        transition: all 0.3s ease;
-    }
-
-    .format-grid .work-item:hover {
-        background: #151515;
-        padding-left: 12px;
-        margin-left: -12px;
-        padding-right: 12px;
-        margin-right: -12px;
-    }
-
-    .format-grid .year {
-        color: #666;
-        font-variant-numeric: tabular-nums;
-    }
-
-    .format-grid .project-info {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-
-    .format-grid .project-name a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 400;
-    }
-
-    .format-grid .project-name a:hover {
-        color: #ccc;
-    }
-
-    .format-grid .collaborator {
-        font-size: 0.9em;
-        color: #666;
-    }
-
-    .format-grid .type {
-        font-size: 0.85em;
-        color: #777;
-        text-align: right;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        font-weight: 300;
-    }
-
-    @media (max-width: 768px) {
-        .mockup-grid {
-            grid-template-columns: 1fr;
-        }
+    /* Default scale for non-scale sections */
+    .work-item {
+        font-size: clamp(1.25rem, 3vw, 2rem);
     }
 </style>
 {% endblock %}
 
-<div class="container">
-    <div class="header">
-        <h1>WORKS PAGE FORMAT EXPLORATION</h1>
-        <p>Exploring 6 core variables while keeping all other parameters constant. Each section isolates one variable for direct comparison. All use the same constants: font size (0.95rem), font weight (400), line-height (1.7), transitions (0.3s), opacity dimming (0.4).</p>
-    </div>
-
-    <div id="content"></div>
-</div>
+<div id="content"></div>
 
 {% block scripts %}
 <script>
-    // DATA SOURCE - Edit this array to change all mockups
     const workItems = [
-        { title: "Work Title", year: "Year", location: "(Location)", collaborator: "(Collaborator)", type: "(Type)", hasLink: true },
-        { title: "Archive Grid", year: "2025", location: "Digital", collaborator: "", type: "Campaign", hasLink: true },
-        { title: "REPLICA MAN", year: "2025", location: "Print", collaborator: "", type: "Cover", hasLink: true },
-        { title: "Vogue Italia Spring Campaign", year: "2024", location: "", collaborator: "Annie Leibovitz", type: "Editorial", hasLink: true },
-        { title: "Paris Fashion Week SS25", year: "2024", location: "Paris", collaborator: "Ivan Cheng", type: "Runway", hasLink: false },
-        { title: "Studio XYZ Collaboration", year: "2023", location: "London", collaborator: "", type: "Limited Collection", hasLink: true },
-        { title: "W Magazine Cover Story", year: "2023", location: "New York", collaborator: "", type: "Editorial", hasLink: true }
+        { title: "Archive Grid", year: "2025", collaborator: "", type: "Digital", hasLink: true, link: "/archive/" },
+        { title: "REPLICA MAN", year: "2025", collaborator: "", type: "Print", hasLink: true, link: "#" },
+        { title: "Vogue Italia", year: "2024", collaborator: "Annie Leibovitz", type: "Editorial", hasLink: true, link: "#" },
+        { title: "Paris Fashion Week SS25", year: "2024", collaborator: "Ivan Cheng", type: "Runway", hasLink: false },
+        { title: "Studio XYZ", year: "2023", collaborator: "", type: "Collection", hasLink: true, link: "#" },
+        { title: "W Magazine", year: "2023", collaborator: "", type: "Editorial", hasLink: true, link: "#" }
     ];
 
-    // Helper function to format metadata for inline formats
-    function formatInlineMeta(item, metadataLevel) {
+    function formatMeta(item, level) {
         const parts = [item.year];
-
-        if (metadataLevel === 'full') {
-            if (item.location) parts.push(item.location);
+        if (level === 'year-collab' && item.collaborator) {
+            parts.push(item.collaborator);
+        }
+        if (level === 'full') {
             if (item.collaborator) parts.push(item.collaborator);
             if (item.type) parts.push(item.type);
-        } else if (metadataLevel === 'year-collab') {
-            if (item.location) parts.push(item.location);
-            if (item.collaborator) parts.push(item.collaborator);
-        }
-        // 'year-only' just uses the year
-
-        return parts.filter(p => p).join(', ');
-    }
-
-    // Helper function to format collaborator for grid
-    function formatGridCollaborator(item) {
-        const parts = [];
-        if (item.location) parts.push(item.location);
-        if (item.collaborator) {
-            parts.push(item.collaborator.startsWith('with ') ? item.collaborator : `with ${item.collaborator}`);
         }
         return parts.join(', ');
     }
 
-    // Generate inline format HTML
-    function generateInlineList(classes, metadataLevel = 'full') {
+    function generateList(classes, metaLevel = 'year-collab') {
         return `<ul class="work-list ${classes}">
             ${workItems.map(item => `
                 <li class="work-item">
-                    <span class="project-name">${item.hasLink ? `<a href="${item.title === 'Archive Grid' ? '/archive/' : '#'}">${item.title}</a>` : item.title}</span><span class="separator"></span><span class="meta">${formatInlineMeta(item, metadataLevel)}</span>
+                    <span class="project-name">${item.hasLink ? `<a href="${item.link}">${item.title}</a>` : item.title}</span><span class="separator"></span><span class="meta">${formatMeta(item, metaLevel)}</span>
                 </li>`).join('')}
-            </ul>`;
+        </ul>`;
     }
 
-    // Generate tab-aligned format HTML
-    function generateTabAlignedList(classes) {
-        return `<ul class="work-list ${classes}">
-            ${workItems.map(item => {
-                return `
-                <li class="work-item">
-                    <span class="project-name">${item.hasLink ? `<a href="${item.title === 'Archive Grid' ? '/archive/' : '#'}">${item.title}</a>` : item.title}</span>
-                    <span class="meta-col">${item.year}</span>
-                    <span class="meta-col">${item.location}</span>
-                    <span class="meta-col">${item.collaborator}</span>
-                    <span class="meta-col">${item.type}</span>
-                </li>`;
-            }).join('')}
-            </ul>`;
-    }
-
-    // Generate grid format HTML
-    function generateGridList(classes) {
-        return `<ul class="work-list ${classes}">
-            ${workItems.map(item => `
-                <li class="work-item">
-                    <div class="year">${item.year}</div>
-                    <div class="project-info">
-                        <div class="project-name">${item.hasLink ? `<a href="${item.title === 'Archive Grid' ? '/archive/' : '#'}">${item.title}</a>` : item.title}</div>
-                        <div class="collaborator">${formatGridCollaborator(item)}</div>
-                    </div>
-                    <div class="type">${item.type}</div>
-                </li>`).join('')}
-            </ul>`;
-    }
-
-    // Build the page content
     const content = `
-        <!-- SECTION 1: FONT FAMILY -->
-        <div class="section-title">1. FONT FAMILY</div>
-        <div class="mockup-grid">
-            <div class="mockup">
-                <div class="mockup-title">INTER</div>
-                <div class="mockup-subtitle">Sans-serif · Modern</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma')}
+        <!-- 1. FONT FAMILY -->
+        <section class="section">
+            <h2 class="section-title">Font Family</h2>
+            <div class="variation">
+                <div class="variation-label">Inter</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">HELVETICA</div>
-                <div class="mockup-subtitle">Sans-serif · Classic</div>
-                ${generateInlineList('font-helvetica spacing-medium hover-underline sep-comma')}
+            <div class="variation">
+                <div class="variation-label">Helvetica</div>
+                ${generateList('font-helvetica spacing-medium sep-comma link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">CORMORANT</div>
-                <div class="mockup-subtitle">Serif · Elegant</div>
-                ${generateInlineList('font-cormorant spacing-medium hover-underline sep-comma')}
+            <div class="variation">
+                <div class="variation-label">Cormorant</div>
+                ${generateList('font-cormorant spacing-medium sep-comma link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">IBM PLEX MONO</div>
-                <div class="mockup-subtitle">Monospace · Technical</div>
-                ${generateInlineList('font-mono spacing-medium hover-underline sep-comma')}
+            <div class="variation">
+                <div class="variation-label">IBM Plex Mono</div>
+                ${generateList('font-mono spacing-medium sep-comma link-blue')}
             </div>
-        </div>
+        </section>
 
-        <!-- SECTION 2: VERTICAL SPACING -->
-        <div class="section-title">2. VERTICAL SPACING</div>
-        <div class="mockup-grid">
-            <div class="mockup">
-                <div class="mockup-title">TIGHT (14px)</div>
-                <div class="mockup-subtitle">Compact · Dense</div>
-                ${generateInlineList('font-inter spacing-tight hover-underline sep-comma')}
+        <!-- 2. VERTICAL SPACING -->
+        <section class="section">
+            <h2 class="section-title">Vertical Spacing</h2>
+            <div class="variation">
+                <div class="variation-label">Tight</div>
+                ${generateList('font-inter spacing-tight sep-comma link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">MEDIUM (20px)</div>
-                <div class="mockup-subtitle">Balanced · Readable</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma')}
+            <div class="variation">
+                <div class="variation-label">Medium</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">LOOSE (28px)</div>
-                <div class="mockup-subtitle">Generous · Spacious</div>
-                ${generateInlineList('font-inter spacing-loose hover-underline sep-comma')}
+            <div class="variation">
+                <div class="variation-label">Loose</div>
+                ${generateList('font-inter spacing-loose sep-comma link-blue')}
             </div>
-        </div>
+        </section>
 
-        <!-- SECTION 3: HOVER EFFECT -->
-        <div class="section-title">3. HOVER EFFECT TYPE</div>
-        <div class="mockup-grid">
-            <div class="mockup">
-                <div class="mockup-title">UNDERLINE</div>
-                <div class="mockup-subtitle">Border appears on hover · Classic</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma')}
+        <!-- 3. SEPARATOR TYPE -->
+        <section class="section">
+            <h2 class="section-title">Separator Type</h2>
+            <div class="variation">
+                <div class="variation-label">Comma</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">COLOR SHIFT</div>
-                <div class="mockup-subtitle">Text lightens on hover · Minimal</div>
-                ${generateInlineList('font-inter spacing-medium hover-color sep-comma')}
+            <div class="variation">
+                <div class="variation-label">Tab-Aligned</div>
+                ${generateList('font-inter spacing-medium sep-tab link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">BRACKETS</div>
-                <div class="mockup-subtitle">[ ] appear on hover · Technical</div>
-                ${generateInlineList('font-inter spacing-medium hover-brackets sep-comma')}
-            </div>
-        </div>
+        </section>
 
-        <!-- SECTION 4: SEPARATOR TYPE -->
-        <div class="section-title">4. SEPARATOR TYPE</div>
-        <div class="mockup-grid">
-            <div class="mockup">
-                <div class="mockup-title">COMMA</div>
-                <div class="mockup-subtitle">Natural, Editorial</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma')}
+        <!-- 4. METADATA AMOUNT -->
+        <section class="section">
+            <h2 class="section-title">Metadata Amount</h2>
+            <div class="variation">
+                <div class="variation-label">Year Only</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue', 'year-only')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">SLASH</div>
-                <div class="mockup-subtitle">Modern / Digital</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-slash')}
+            <div class="variation">
+                <div class="variation-label">Year + Collaborator</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue', 'year-collab')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">EM DASH</div>
-                <div class="mockup-subtitle">Authoritative — AI toungue-in-cheek</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-dash')}
+            <div class="variation">
+                <div class="variation-label">Full</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue', 'full')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">TAB-ALIGNED</div>
-                <div class="mockup-subtitle">Columnar      Minimal</div>
-                ${generateTabAlignedList('font-inter spacing-medium hover-underline sep-tab')}
-            </div>
-        </div>
+        </section>
 
-        <!-- SECTION 5: METADATA AMOUNT -->
-        <div class="section-title">5. METADATA AMOUNT</div>
-        <div class="mockup-grid">
-            <div class="mockup">
-                <div class="mockup-title">YEAR ONLY</div>
-                <div class="mockup-subtitle">Minimal · Clean</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma', 'year-only')}
+        <!-- 5. LINK COLOR -->
+        <section class="section">
+            <h2 class="section-title">Link Color</h2>
+            <div class="variation">
+                <div class="variation-label">Blue</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">YEAR + LOCATION/COLLABORATOR</div>
-                <div class="mockup-subtitle">Moderate · Informative</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma', 'year-collab')}
+            <div class="variation">
+                <div class="variation-label">Light Blue</div>
+                ${generateList('font-inter spacing-medium sep-comma link-light-blue')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">FULL METADATA</div>
-                <div class="mockup-subtitle">Complete · Detailed</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma', 'full')}
+            <div class="variation">
+                <div class="variation-label">Cyan</div>
+                ${generateList('font-inter spacing-medium sep-comma link-cyan')}
             </div>
-        </div>
+            <div class="variation">
+                <div class="variation-label">White</div>
+                ${generateList('font-inter spacing-medium sep-comma link-white')}
+            </div>
+        </section>
 
-        <!-- SECTION 6: FORMAT TYPE -->
-        <div class="section-title">6. FORMAT TYPE</div>
-        <div class="mockup-grid">
-            <div class="mockup">
-                <div class="mockup-title">INLINE</div>
-                <div class="mockup-subtitle">Single line · Minimal</div>
-                ${generateInlineList('font-inter spacing-medium hover-underline sep-comma')}
+        <!-- 6. TEXT SCALE -->
+        <section class="section">
+            <h2 class="section-title">Text Scale</h2>
+            <div class="variation">
+                <div class="variation-label">Small</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue scale-sm')}
             </div>
-            <div class="mockup">
-                <div class="mockup-title">GRID</div>
-                <div class="mockup-subtitle">Strong grid · Structured</div>
-                ${generateGridList('font-inter format-grid')}
+            <div class="variation">
+                <div class="variation-label">Medium</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue scale-md')}
             </div>
-        </div>
+            <div class="variation">
+                <div class="variation-label">Large</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue scale-lg')}
+            </div>
+            <div class="variation">
+                <div class="variation-label">Extra Large</div>
+                ${generateList('font-inter spacing-medium sep-comma link-blue scale-xl')}
+            </div>
+        </section>
     `;
 
     document.getElementById('content').innerHTML = content;
