@@ -109,10 +109,15 @@ title: Work — Good and Bad
     .sep-tab .meta { text-align: right; }
 
     /* VARIABLE: Link Color */
+    .link-classic .project-name a { color: #0000EE; }
     .link-blue .project-name a { color: #4A90D9; }
     .link-light-blue .project-name a { color: #7AB8F5; }
-    .link-cyan .project-name a { color: #5BC0BE; }
+    .link-modern-blue .project-name a { color: #0066CC; }
     .link-white .project-name a { color: #fff; }
+
+    /* VARIABLE: Underline */
+    .underline-on .project-name a { text-decoration: underline; }
+    .underline-off .project-name a { text-decoration: none; }
 
     /* VARIABLE: Text Scale */
     .scale-sm .work-item { font-size: clamp(1rem, 2vw, 1.5rem); }
@@ -167,19 +172,19 @@ title: Work — Good and Bad
             <h2 class="section-title">Font Family</h2>
             <div class="variation">
                 <div class="variation-label">Inter</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">Helvetica</div>
-                ${generateList('font-helvetica spacing-medium sep-comma link-blue')}
+                ${generateList('font-helvetica spacing-medium sep-comma link-classic underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">Cormorant</div>
-                ${generateList('font-cormorant spacing-medium sep-comma link-blue')}
+                ${generateList('font-cormorant spacing-medium sep-comma link-classic underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">IBM Plex Mono</div>
-                ${generateList('font-mono spacing-medium sep-comma link-blue')}
+                ${generateList('font-mono spacing-medium sep-comma link-classic underline-on')}
             </div>
         </section>
 
@@ -188,15 +193,15 @@ title: Work — Good and Bad
             <h2 class="section-title">Vertical Spacing</h2>
             <div class="variation">
                 <div class="variation-label">Tight</div>
-                ${generateList('font-inter spacing-tight sep-comma link-blue')}
+                ${generateList('font-inter spacing-tight sep-comma link-classic underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">Medium</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">Loose</div>
-                ${generateList('font-inter spacing-loose sep-comma link-blue')}
+                ${generateList('font-inter spacing-loose sep-comma link-classic underline-on')}
             </div>
         </section>
 
@@ -205,11 +210,11 @@ title: Work — Good and Bad
             <h2 class="section-title">Separator Type</h2>
             <div class="variation">
                 <div class="variation-label">Comma</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">Tab-Aligned</div>
-                ${generateList('font-inter spacing-medium sep-tab link-blue')}
+                ${generateList('font-inter spacing-medium sep-tab link-classic underline-on')}
             </div>
         </section>
 
@@ -218,15 +223,15 @@ title: Work — Good and Bad
             <h2 class="section-title">Metadata Amount</h2>
             <div class="variation">
                 <div class="variation-label">Year Only</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue', 'year-only')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on', 'year-only')}
             </div>
             <div class="variation">
                 <div class="variation-label">Year + Collaborator</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue', 'year-collab')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on', 'year-collab')}
             </div>
             <div class="variation">
                 <div class="variation-label">Full</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue', 'full')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on', 'full')}
             </div>
         </section>
 
@@ -234,41 +239,58 @@ title: Work — Good and Bad
         <section class="section">
             <h2 class="section-title">Link Color</h2>
             <div class="variation">
+                <div class="variation-label">Classic Web Blue</div>
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
+            </div>
+            <div class="variation">
                 <div class="variation-label">Blue</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue')}
+                ${generateList('font-inter spacing-medium sep-comma link-blue underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">Light Blue</div>
-                ${generateList('font-inter spacing-medium sep-comma link-light-blue')}
+                ${generateList('font-inter spacing-medium sep-comma link-light-blue underline-on')}
             </div>
             <div class="variation">
-                <div class="variation-label">Cyan</div>
-                ${generateList('font-inter spacing-medium sep-comma link-cyan')}
+                <div class="variation-label">Modern Blue</div>
+                ${generateList('font-inter spacing-medium sep-comma link-modern-blue underline-on')}
             </div>
             <div class="variation">
                 <div class="variation-label">White</div>
-                ${generateList('font-inter spacing-medium sep-comma link-white')}
+                ${generateList('font-inter spacing-medium sep-comma link-white underline-on')}
             </div>
         </section>
 
-        <!-- 6. TEXT SCALE -->
+        <!-- 6. UNDERLINE -->
+        <section class="section">
+            <h2 class="section-title">Underline</h2>
+            <div class="variation">
+                <div class="variation-label">Underlined</div>
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
+            </div>
+            <div class="variation">
+                <div class="variation-label">No Underline</div>
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-off')}
+            </div>
+        </section>
+
+        <!-- 7. TEXT SCALE -->
         <section class="section">
             <h2 class="section-title">Text Scale</h2>
             <div class="variation">
                 <div class="variation-label">Small</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue scale-sm')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-sm')}
             </div>
             <div class="variation">
                 <div class="variation-label">Medium</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue scale-md')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-md')}
             </div>
             <div class="variation">
                 <div class="variation-label">Large</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue scale-lg')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-lg')}
             </div>
             <div class="variation">
                 <div class="variation-label">Extra Large</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue scale-xl')}
+                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-xl')}
             </div>
         </section>
     `;
