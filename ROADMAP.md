@@ -1,6 +1,6 @@
 # Project Roadmap: Brand Website Expansion
 
-**Last Updated:** 2025-12-18
+**Last Updated:** 2026-01-16
 
 ## Project Overview
 
@@ -72,6 +72,75 @@ This phase implements the structural changes required to support the multi-page 
   - [x] **Base Layout:** Add script to `base.njk` to parse URL parameters and apply global classes (`display-*`, `bg-*`) to `<html>` and `<body>`.
   - [x] **Global CSS:** Define `bg-white` and `bg-black` in `global.css`.
   - [x] **Landing Page:** Update `index.njk` to respond to these classes (setting video object-fit).
+
+---
+
+## Phase 3: Interactive Work Page Sandbox
+
+### Overview
+
+Transform the Work page from a static exploration of style variations into an interactive sandbox where users can build their own combination of styles in real-time. All interactivity is client-side JavaScript—no server required.
+
+### Goals
+
+1. **Live Preview:** Single work list that updates instantly as users change options
+2. **Shareable:** URL parameters encode selections, enabling shareable links
+3. **Minimal UI:** Controls should be unobtrusive and match the minimalist aesthetic
+4. **Mobile-friendly:** Controls should work on touch devices
+
+### Design Decisions
+
+- [x] **Control placement:** Inline above content
+- [x] **Control style:** Plain text labels with native dropdowns (e.g., `Font: [Inter ▼]`)
+- [x] **Show/hide controls:** Always visible at top of page
+- [x] **Default state:** Inter, Classic Blue, Underline on, Medium scale, Comma, Medium spacing, Full metadata
+- [x] **Layout:** Single line preferred, wrap to two lines on narrow screens
+
+### 1. State Management
+
+- **Description:** Implement a central state object and URL parameter sync
+- **Status:** [ ] Not Started
+- **Tasks:**
+  - [ ] Create state object with all variable selections
+  - [ ] Parse URL parameters on page load to restore state
+  - [ ] Update URL parameters (using `history.replaceState`) when selections change
+  - [ ] Apply CSS classes to preview element based on state
+
+### 2. Control Panel UI
+
+- **Description:** Build the interactive controls for each variable
+- **Status:** [ ] Not Started
+- **Variable Options:**
+  - **Font:** Inter, Helvetica, Cormorant, Mono
+  - **Color:** Classic, Blue, Light, Modern, White
+  - **Underline:** On, Off
+  - **Scale:** S, M, L, XL
+  - **Separator:** Comma, Slash, Em Dash, Tab
+  - **Spacing:** Tight, Medium, Loose
+  - **Metadata:** Year, Year+Collab, Full
+- **Tasks:**
+  - [ ] Design control panel layout (placement, styling)
+  - [ ] Implement all 7 variable selectors as native dropdowns
+  - [ ] Style controls to match minimalist aesthetic
+
+### 3. Preview Component
+
+- **Description:** Single work list that reflects current selections
+- **Status:** [ ] Not Started
+- **Tasks:**
+  - [ ] Replace multi-section layout with single preview area
+  - [ ] Ensure smooth transitions when classes change
+  - [ ] Consider adding a "reset to default" button
+
+### 4. Polish & Enhancements
+
+- **Description:** Refinements after core functionality works
+- **Status:** [ ] Not Started
+- **Tasks:**
+  - [ ] Add localStorage persistence (remember last selection across visits)
+  - [ ] Add "Copy Link" button for easy sharing
+  - [ ] Consider keyboard shortcuts for power users
+  - [ ] Test on mobile devices and refine touch interactions
 
 ---
 

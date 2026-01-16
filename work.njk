@@ -21,37 +21,56 @@ title: Work — Good and Bad
         line-height: 1.5;
     }
 
-    /* Section styling */
-    .section {
-        min-height: 100vh;
-        padding: 8vh 8vw;
-        border-bottom: 1px solid #222;
-    }
-
-    .section-title {
-        font-size: clamp(0.75rem, 1.5vw, 1rem);
-        font-weight: 400;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
+    /* Control bar */
+    .controls {
+        padding: 8vh 8vw 4vh;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5em;
+        align-items: center;
+        font-size: clamp(0.7rem, 1.2vw, 0.85rem);
         color: #666;
-        margin-bottom: 6vh;
     }
 
-    .variation {
-        margin-bottom: 12vh;
+    .control {
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
     }
 
-    .variation:last-child {
-        margin-bottom: 0;
+    .control label {
+        text-transform: lowercase;
     }
 
-    .variation-label {
-        font-size: clamp(0.6rem, 1vw, 0.75rem);
-        font-weight: 400;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: #444;
-        margin-bottom: 3vh;
+    .control select {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: pointer;
+        padding: 0.2em 0;
+        border-bottom: 1px solid #333;
+    }
+
+    .control select:hover {
+        border-bottom-color: #666;
+    }
+
+    .control select:focus {
+        outline: none;
+        border-bottom-color: #fff;
+    }
+
+    .control select option {
+        background: #000;
+        color: #fff;
+    }
+
+    /* Preview area */
+    .preview {
+        padding: 4vh 8vw 8vh;
+        min-height: 70vh;
     }
 
     /* Work list base styles */
@@ -60,7 +79,7 @@ title: Work — Good and Bad
     }
 
     .work-item {
-        transition: opacity 0.3s ease;
+        transition: opacity 0.2s ease, margin 0.2s ease, font-size 0.2s ease;
     }
 
     .work-list:has(a:hover) .work-item {
@@ -73,7 +92,7 @@ title: Work — Good and Bad
 
     .project-name a {
         text-decoration: none;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.2s ease;
     }
 
     .separator {
@@ -99,6 +118,12 @@ title: Work — Good and Bad
     .sep-comma .separator::after { content: ','; }
     .sep-comma .separator { margin-right: 0.5em; }
 
+    .sep-slash .separator::after { content: '/'; }
+    .sep-slash .separator { margin-left: 0.5em; margin-right: 0.5em; }
+
+    .sep-dash .separator::after { content: '—'; }
+    .sep-dash .separator { margin-left: 0.5em; margin-right: 0.5em; }
+
     .sep-tab .work-item {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -111,8 +136,8 @@ title: Work — Good and Bad
     /* VARIABLE: Link Color */
     .link-classic .project-name a { color: #0000EE; }
     .link-blue .project-name a { color: #4A90D9; }
-    .link-light-blue .project-name a { color: #7AB8F5; }
-    .link-modern-blue .project-name a { color: #0066CC; }
+    .link-light .project-name a { color: #7AB8F5; }
+    .link-modern .project-name a { color: #0066CC; }
     .link-white .project-name a { color: #fff; }
 
     /* VARIABLE: Underline */
@@ -120,22 +145,83 @@ title: Work — Good and Bad
     .underline-off .project-name a { text-decoration: none; }
 
     /* VARIABLE: Text Scale */
-    .scale-sm .work-item { font-size: clamp(1rem, 2vw, 1.5rem); }
-    .scale-md .work-item { font-size: clamp(1.25rem, 3vw, 2rem); }
-    .scale-lg .work-item { font-size: clamp(1.5rem, 4vw, 3rem); }
+    .scale-s .work-item { font-size: clamp(1rem, 2vw, 1.5rem); }
+    .scale-m .work-item { font-size: clamp(1.25rem, 3vw, 2rem); }
+    .scale-l .work-item { font-size: clamp(1.5rem, 4vw, 3rem); }
     .scale-xl .work-item { font-size: clamp(2rem, 5vw, 4rem); }
-
-    /* Default scale for non-scale sections */
-    .work-item {
-        font-size: clamp(1.25rem, 3vw, 2rem);
-    }
 </style>
 {% endblock %}
 
-<div id="content"></div>
+<div class="controls">
+    <div class="control">
+        <label for="font">font:</label>
+        <select id="font">
+            <option value="inter">Inter</option>
+            <option value="helvetica">Helvetica</option>
+            <option value="cormorant">Cormorant</option>
+            <option value="mono">Mono</option>
+        </select>
+    </div>
+    <div class="control">
+        <label for="color">color:</label>
+        <select id="color">
+            <option value="classic">Classic</option>
+            <option value="blue">Blue</option>
+            <option value="light">Light</option>
+            <option value="modern">Modern</option>
+            <option value="white">White</option>
+        </select>
+    </div>
+    <div class="control">
+        <label for="underline">underline:</label>
+        <select id="underline">
+            <option value="on">On</option>
+            <option value="off">Off</option>
+        </select>
+    </div>
+    <div class="control">
+        <label for="scale">scale:</label>
+        <select id="scale">
+            <option value="s">S</option>
+            <option value="m">M</option>
+            <option value="l">L</option>
+            <option value="xl">XL</option>
+        </select>
+    </div>
+    <div class="control">
+        <label for="separator">separator:</label>
+        <select id="separator">
+            <option value="comma">Comma</option>
+            <option value="slash">Slash</option>
+            <option value="dash">Em Dash</option>
+            <option value="tab">Tab</option>
+        </select>
+    </div>
+    <div class="control">
+        <label for="spacing">spacing:</label>
+        <select id="spacing">
+            <option value="tight">Tight</option>
+            <option value="medium">Medium</option>
+            <option value="loose">Loose</option>
+        </select>
+    </div>
+    <div class="control">
+        <label for="metadata">metadata:</label>
+        <select id="metadata">
+            <option value="year">Year</option>
+            <option value="year-collab">Year+Collab</option>
+            <option value="full">Full</option>
+        </select>
+    </div>
+</div>
+
+<div class="preview">
+    <ul id="work-list" class="work-list"></ul>
+</div>
 
 {% block scripts %}
 <script>
+    // Work items data
     const workItems = [
         { title: "Archive Grid", year: "2025", collaborator: "", type: "Digital", hasLink: true, link: "/archive/" },
         { title: "REPLICA MAN", year: "2025", collaborator: "", type: "Print", hasLink: true, link: "#" },
@@ -145,6 +231,33 @@ title: Work — Good and Bad
         { title: "W Magazine", year: "2023", collaborator: "", type: "Editorial", hasLink: true, link: "#" }
     ];
 
+    // Default state
+    const defaults = {
+        font: 'inter',
+        color: 'classic',
+        underline: 'on',
+        scale: 'm',
+        separator: 'comma',
+        spacing: 'medium',
+        metadata: 'full'
+    };
+
+    // Current state
+    let state = { ...defaults };
+
+    // DOM elements
+    const workList = document.getElementById('work-list');
+    const controls = {
+        font: document.getElementById('font'),
+        color: document.getElementById('color'),
+        underline: document.getElementById('underline'),
+        scale: document.getElementById('scale'),
+        separator: document.getElementById('separator'),
+        spacing: document.getElementById('spacing'),
+        metadata: document.getElementById('metadata')
+    };
+
+    // Format metadata based on level
     function formatMeta(item, level) {
         const parts = [item.year];
         if (level === 'year-collab' && item.collaborator) {
@@ -157,144 +270,73 @@ title: Work — Good and Bad
         return parts.join(', ');
     }
 
-    function generateList(classes, metaLevel = 'year-collab') {
-        return `<ul class="work-list ${classes}">
-            ${workItems.map(item => `
-                <li class="work-item">
-                    <span class="project-name">${item.hasLink ? `<a href="${item.link}">${item.title}</a>` : item.title}</span><span class="separator"></span><span class="meta">${formatMeta(item, metaLevel)}</span>
-                </li>`).join('')}
-        </ul>`;
+    // Generate work list HTML
+    function renderList() {
+        workList.innerHTML = workItems.map(item => `
+            <li class="work-item">
+                <span class="project-name">${item.hasLink ? `<a href="${item.link}">${item.title}</a>` : item.title}</span><span class="separator"></span><span class="meta">${formatMeta(item, state.metadata)}</span>
+            </li>
+        `).join('');
     }
 
-    const content = `
-        <!-- 1. FONT FAMILY -->
-        <section class="section">
-            <h2 class="section-title">Font Family</h2>
-            <div class="variation">
-                <div class="variation-label">Inter</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Helvetica</div>
-                ${generateList('font-helvetica spacing-medium sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Cormorant</div>
-                ${generateList('font-cormorant spacing-medium sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">IBM Plex Mono</div>
-                ${generateList('font-mono spacing-medium sep-comma link-classic underline-on')}
-            </div>
-        </section>
+    // Apply classes to work list based on state
+    function applyClasses() {
+        workList.className = `work-list font-${state.font} link-${state.color} underline-${state.underline} scale-${state.scale} sep-${state.separator} spacing-${state.spacing}`;
+    }
 
-        <!-- 2. LINK COLOR -->
-        <section class="section">
-            <h2 class="section-title">Link Color</h2>
-            <div class="variation">
-                <div class="variation-label">Classic Web Blue</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Blue</div>
-                ${generateList('font-inter spacing-medium sep-comma link-blue underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Light Blue</div>
-                ${generateList('font-inter spacing-medium sep-comma link-light-blue underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Modern Blue</div>
-                ${generateList('font-inter spacing-medium sep-comma link-modern-blue underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">White</div>
-                ${generateList('font-inter spacing-medium sep-comma link-white underline-on')}
-            </div>
-        </section>
+    // Update URL parameters
+    function updateURL() {
+        const params = new URLSearchParams();
+        for (const [key, value] of Object.entries(state)) {
+            if (value !== defaults[key]) {
+                params.set(key, value);
+            }
+        }
+        const newURL = params.toString() ? `?${params.toString()}` : window.location.pathname;
+        history.replaceState(null, '', newURL);
+    }
 
-        <!-- 3. UNDERLINE -->
-        <section class="section">
-            <h2 class="section-title">Underline</h2>
-            <div class="variation">
-                <div class="variation-label">Underlined</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">No Underline</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-off')}
-            </div>
-        </section>
+    // Parse URL parameters on load
+    function parseURL() {
+        const params = new URLSearchParams(window.location.search);
+        for (const key of Object.keys(state)) {
+            const value = params.get(key);
+            if (value && controls[key].querySelector(`option[value="${value}"]`)) {
+                state[key] = value;
+            }
+        }
+    }
 
-        <!-- 4. TEXT SCALE -->
-        <section class="section">
-            <h2 class="section-title">Text Scale</h2>
-            <div class="variation">
-                <div class="variation-label">Small</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-sm')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Medium</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-md')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Large</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-lg')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Extra Large</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on scale-xl')}
-            </div>
-        </section>
+    // Sync controls to state
+    function syncControls() {
+        for (const [key, el] of Object.entries(controls)) {
+            el.value = state[key];
+        }
+    }
 
-        <!-- 5. SEPARATOR TYPE -->
-        <section class="section">
-            <h2 class="section-title">Separator Type</h2>
-            <div class="variation">
-                <div class="variation-label">Comma</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Tab-Aligned</div>
-                ${generateList('font-inter spacing-medium sep-tab link-classic underline-on')}
-            </div>
-        </section>
+    // Handle control changes
+    function handleChange(key, value) {
+        state[key] = value;
+        if (key === 'metadata') {
+            renderList();
+        }
+        applyClasses();
+        updateURL();
+    }
 
-        <!-- 6. VERTICAL SPACING -->
-        <section class="section">
-            <h2 class="section-title">Vertical Spacing</h2>
-            <div class="variation">
-                <div class="variation-label">Tight</div>
-                ${generateList('font-inter spacing-tight sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Medium</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Loose</div>
-                ${generateList('font-inter spacing-loose sep-comma link-classic underline-on')}
-            </div>
-        </section>
+    // Initialize
+    function init() {
+        parseURL();
+        syncControls();
+        renderList();
+        applyClasses();
 
-        <!-- 7. METADATA AMOUNT -->
-        <section class="section">
-            <h2 class="section-title">Metadata Amount</h2>
-            <div class="variation">
-                <div class="variation-label">Year Only</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on', 'year-only')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Year + Collaborator</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on', 'year-collab')}
-            </div>
-            <div class="variation">
-                <div class="variation-label">Full</div>
-                ${generateList('font-inter spacing-medium sep-comma link-classic underline-on', 'full')}
-            </div>
-        </section>
-    `;
+        // Add event listeners
+        for (const [key, el] of Object.entries(controls)) {
+            el.addEventListener('change', (e) => handleChange(key, e.target.value));
+        }
+    }
 
-    document.getElementById('content').innerHTML = content;
+    init();
 </script>
 {% endblock %}
