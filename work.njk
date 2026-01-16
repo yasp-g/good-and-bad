@@ -23,7 +23,7 @@ title: Work — Good and Bad
 
     /* Control bar */
     .controls {
-        padding: 8vh 8vw 4vh;
+        padding: 4vh var(--margin-x, 8vw) 2vh;
         display: flex;
         flex-wrap: wrap;
         gap: 1.5em;
@@ -69,9 +69,16 @@ title: Work — Good and Bad
 
     /* Preview area */
     .preview {
-        padding: 4vh 8vw 8vh;
+        padding: 4vh var(--margin-x, 8vw) 8vh;
         min-height: 70vh;
     }
+
+    /* VARIABLE: Margin */
+    .margin-none { --margin-x: 0; }
+    .margin-minimal { --margin-x: clamp(0.5rem, 1vw, 1rem); }
+    .margin-tight { --margin-x: clamp(1rem, 2vw, 2rem); }
+    .margin-medium { --margin-x: clamp(1.5rem, 4vw, 4rem); }
+    .margin-wide { --margin-x: clamp(2rem, 8vw, 8rem); }
 
     /* Work list base styles */
     .work-list {
@@ -217,6 +224,16 @@ title: Work — Good and Bad
         </select>
     </div>
     <div class="control">
+        <label for="margin">margin:</label>
+        <select id="margin">
+            <option value="none">None</option>
+            <option value="minimal">Minimal</option>
+            <option value="tight">Tight</option>
+            <option value="medium">Medium</option>
+            <option value="wide">Wide</option>
+        </select>
+    </div>
+    <div class="control">
         <label for="spacing">spacing:</label>
         <select id="spacing">
             <option value="tight">Tight</option>
@@ -257,6 +274,7 @@ title: Work — Good and Bad
         underline: 'on',
         scale: 'm',
         separator: 'comma',
+        margin: 'medium',
         spacing: 'medium',
         metadata: 'full'
     };
@@ -272,6 +290,7 @@ title: Work — Good and Bad
         underline: document.getElementById('underline'),
         scale: document.getElementById('scale'),
         separator: document.getElementById('separator'),
+        margin: document.getElementById('margin'),
         spacing: document.getElementById('spacing'),
         metadata: document.getElementById('metadata')
     };
@@ -312,9 +331,11 @@ title: Work — Good and Bad
         }).join('');
     }
 
-    // Apply classes to work list based on state
+    // Apply classes to work list and body based on state
     function applyClasses() {
         workList.className = `work-list font-${state.font} link-${state.color} underline-${state.underline} scale-${state.scale} sep-${state.separator} spacing-${state.spacing}`;
+        // Margin class on body so CSS variable applies to both controls and preview
+        document.body.className = document.body.className.replace(/margin-\w+/g, '').trim() + ` margin-${state.margin}`;
     }
 
     // Update URL parameters
