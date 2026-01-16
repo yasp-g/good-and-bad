@@ -257,8 +257,8 @@ title: Work — Good and Bad
         metadata: document.getElementById('metadata')
     };
 
-    // Format metadata based on level
-    function formatMeta(item, level) {
+    // Format metadata based on level (reversed for tab layout)
+    function formatMeta(item, level, reverse = false) {
         const parts = [item.year];
         if (level === 'year-collab' && item.collaborator) {
             parts.push(item.collaborator);
@@ -267,14 +267,16 @@ title: Work — Good and Bad
             if (item.collaborator) parts.push(item.collaborator);
             if (item.type) parts.push(item.type);
         }
+        if (reverse) parts.reverse();
         return parts.join(', ');
     }
 
     // Generate work list HTML
     function renderList() {
+        const reverse = state.separator === 'tab';
         workList.innerHTML = workItems.map(item => `
             <li class="work-item">
-                <span class="project-name">${item.hasLink ? `<a href="${item.link}">${item.title}</a>` : item.title}</span><span class="separator"></span><span class="meta">${formatMeta(item, state.metadata)}</span>
+                <span class="project-name">${item.hasLink ? `<a href="${item.link}">${item.title}</a>` : item.title}</span><span class="separator"></span><span class="meta">${formatMeta(item, state.metadata, reverse)}</span>
             </li>
         `).join('');
     }
@@ -317,7 +319,7 @@ title: Work — Good and Bad
     // Handle control changes
     function handleChange(key, value) {
         state[key] = value;
-        if (key === 'metadata') {
+        if (key === 'metadata' || key === 'separator') {
             renderList();
         }
         applyClasses();
