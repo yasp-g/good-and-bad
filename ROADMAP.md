@@ -115,7 +115,7 @@ Transform the Work page from a static exploration of style variations into an in
   - **Color:** Classic, Blue, Light, Modern, White
   - **Underline:** On, Off
   - **Scale:** S, M, L, XL
-  - **Separator:** Comma, Slash, Em Dash, Tab
+  - **Separator:** Comma, Slash, Em Dash, Right, Tab
   - **Spacing:** Tight, Medium, Loose
   - **Metadata:** Year, Year+Collab, Full
 - **Tasks:**

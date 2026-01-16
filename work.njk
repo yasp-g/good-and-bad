@@ -124,14 +124,32 @@ title: Work — Good and Bad
     .sep-dash .separator::after { content: '—'; }
     .sep-dash .separator { margin-left: 0.5em; margin-right: 0.5em; }
 
-    .sep-tab .work-item {
+    /* Right-aligned: title left, metadata right */
+    .sep-right .work-item {
         display: grid;
         grid-template-columns: 1fr auto;
         gap: 4vw;
         align-items: baseline;
     }
+    .sep-right .separator { display: none; }
+    .sep-right .meta { text-align: right; }
+
+    /* Tab-aligned: true multi-column grid */
+    .sep-tab.work-list {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        gap: 2vw;
+        row-gap: 0;
+    }
+    .sep-tab .work-item {
+        display: contents;
+    }
     .sep-tab .separator { display: none; }
-    .sep-tab .meta { text-align: right; }
+    .sep-tab .meta { display: none; }
+    .sep-tab .meta-col {
+        color: #444;
+        text-align: right;
+    }
 
     /* VARIABLE: Link Color */
     .link-classic .project-name a { color: #0000EE; }
@@ -194,6 +212,7 @@ title: Work — Good and Bad
             <option value="comma">Comma</option>
             <option value="slash">Slash</option>
             <option value="dash">Em Dash</option>
+            <option value="right">Right</option>
             <option value="tab">Tab</option>
         </select>
     </div>
@@ -273,12 +292,24 @@ title: Work — Good and Bad
 
     // Generate work list HTML
     function renderList() {
-        const reverse = state.separator === 'tab';
-        workList.innerHTML = workItems.map(item => `
-            <li class="work-item">
-                <span class="project-name">${item.hasLink ? `<a href="${item.link}">${item.title}</a>` : item.title}</span><span class="separator"></span><span class="meta">${formatMeta(item, state.metadata, reverse)}</span>
-            </li>
-        `).join('');
+        const isTab = state.separator === 'tab';
+        const isRight = state.separator === 'right';
+
+        workList.innerHTML = workItems.map(item => {
+            const title = item.hasLink ? `<a href="${item.link}">${item.title}</a>` : item.title;
+
+            if (isTab) {
+                // Multi-column layout: separate spans for each metadata field
+                const year = `<span class="meta-col">${item.year}</span>`;
+                const collab = `<span class="meta-col">${item.collaborator || ''}</span>`;
+                const type = `<span class="meta-col">${item.type || ''}</span>`;
+                return `<li class="work-item"><span class="project-name">${title}</span>${year}${collab}${type}</li>`;
+            } else {
+                // Inline layout with separator
+                const meta = formatMeta(item, state.metadata, isRight);
+                return `<li class="work-item"><span class="project-name">${title}</span><span class="separator"></span><span class="meta">${meta}</span></li>`;
+            }
+        }).join('');
     }
 
     // Apply classes to work list based on state
